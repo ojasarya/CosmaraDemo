@@ -254,12 +254,21 @@
 </div>
 </div>
 </div>
-</div>
-</header>
-<!-- Course Grid (Asymmetric Bento Style) -->
-<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter scroll-animate">
+  </div>
+  </header>
+  <section class="glass-card rounded-xl p-4 md:p-5 border-secondary/20 mb-8" aria-label="Course discovery controls">
+  <div class="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_auto_auto_auto] gap-3">
+  <label class="relative block"><span class="sr-only">Search courses</span><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-[20px]">search</span><input id="course-search" type="search" placeholder="Search courses, topics, or skills..." class="w-full bg-surface-container-low border border-outline-variant/30 rounded-lg py-3 pl-10 pr-4 text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:border-secondary transition-colors"></label>
+  <label><span class="sr-only">Filter by category</span><select id="course-category" class="w-full bg-surface-container-low border border-outline-variant/30 rounded-lg px-3 py-3 text-on-surface focus:outline-none focus:border-secondary"><option value="all">Category: All</option><option value="propulsion">Propulsion</option><option value="aerodynamics">Aerodynamics</option><option value="orbital">Orbital</option><option value="materials">Materials</option></select></label>
+  <label><span class="sr-only">Filter by difficulty</span><select id="course-difficulty" class="w-full bg-surface-container-low border border-outline-variant/30 rounded-lg px-3 py-3 text-on-surface focus:outline-none focus:border-secondary"><option value="all">Difficulty: All</option><option value="beginner">Beginner</option><option value="intermediate">Intermediate</option><option value="advanced">Advanced</option></select></label>
+  <label><span class="sr-only">Sort courses by progress</span><select id="course-sort" class="w-full bg-surface-container-low border border-outline-variant/30 rounded-lg px-3 py-3 text-on-surface focus:outline-none focus:border-secondary"><option value="default">Sort: Progress</option><option value="high">Progress: High to low</option><option value="low">Progress: Low to high</option></select></label>
+  </div>
+  <p id="course-results" class="font-mono-data text-[11px] text-on-surface-variant mt-3">Showing all available courses</p>
+  </section>
+  <!-- Course Grid (Asymmetric Bento Style) -->
+  <div id="course-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter scroll-animate">
 <!-- Course Card 1: Large Featured -->
-<div class="glass-card rounded-xl p-6 relative schematic-bracket flex flex-col md:col-span-2 hover:border-secondary/40 transition-all duration-500 group cursor-pointer" onclick="window.location.href='workshop.html'">
+  <div class="glass-card rounded-xl p-6 relative schematic-bracket flex flex-col md:col-span-2 hover:border-secondary/40 transition-all duration-500 group cursor-pointer" data-course-card data-title="Fundamentals of Rocketry" data-category="propulsion" data-difficulty="intermediate" data-progress="65" onclick="window.location.href='workshop.html'">
 <div class="flex flex-col md:flex-row gap-6">
 <div class="w-full md:w-1/2 aspect-video bg-surface-container-high rounded overflow-hidden relative">
 <img class="w-full h-full object-cover mix-blend-luminosity group-hover:mix-blend-normal transition-all duration-700" data-alt="A highly detailed close-up shot of a rocket engine nozzle during a static fire test. Intense orange and blue flames erupt with technical precision, illuminating a dark, industrial testing facility. The aesthetic is gritty yet high-tech, featuring a dark mode color palette of deep grays, vibrant oranges, and cyan accents, reflecting a mission control atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJbhFxG0Y3mGrHfP925kvgL2ez_6ddZrEa11Fr_eE7x806uF3I4bmS0spg9tHBG_U2wfTQ2mxUpYvpPA455ZLYrkfHQ2aVfrjzMKJmjfFTBzgGt27m2RttzTbSIpoX_WgQr9fHOUX0XThCo_3BdvMgj7ySD3Bh6v1kbNCWCj-e05e8mYcr1rZAnoZ-1PnzkxK9wqGU-GGfgt3TMIjUJj9c02rOip9vKM7EsjwTlAsUOpgHlT7gE-4JbxyNN3W_IniPNjP_J_a5Tjk"/>
@@ -267,12 +276,13 @@
 <div class="absolute top-3 left-3 bg-primary-container text-on-primary-container font-label-caps text-[10px] px-2 py-1 rounded">CORE MODULE</div>
 </div>
 <div class="w-full md:w-1/2 flex flex-col">
-<div class="flex justify-between items-start mb-4">
-<span class="font-label-caps text-label-caps text-secondary">PROPULSION // 204</span>
-<span class="font-label-caps text-label-caps text-on-surface-variant">42H 15M</span>
+  <div class="flex justify-between items-start mb-4">
+  <span class="font-label-caps text-label-caps text-secondary">PROPULSION // 204</span>
+  <button class="bookmark-button text-on-surface-variant hover:text-secondary transition-colors" aria-label="Bookmark Fundamentals of Rocketry" onclick="toggleBookmark(event, this)"><span class="material-symbols-outlined">bookmark</span></button>
 </div>
 <h3 class="font-headline-lg text-headline-lg mb-3">Fundamentals of Rocketry</h3>
-<p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow">A deep dive into chemical propulsion systems, nozzle design, and cryogenic fuel management systems.</p>
+  <p class="font-body-md text-body-md text-on-surface-variant mb-4 flex-grow">A deep dive into chemical propulsion systems, nozzle design, and cryogenic fuel management systems.</p>
+  <div class="flex flex-wrap gap-x-4 gap-y-2 font-mono-data text-[11px] text-on-surface-variant mb-5"><span class="text-secondary">★★★★★</span><span>Intermediate</span><span>18 Lessons</span><span>4 Hours</span></div>
 <div class="space-y-2 mb-6">
 <div class="flex justify-between font-label-caps text-[10px]">
 <span class="text-on-surface-variant">COMPLETION STATUS</span>
@@ -288,7 +298,7 @@
 <span class="font-label-caps text-label-caps">RANK: ENSIGN</span>
 </div>
 <button class="font-label-caps text-label-caps text-secondary flex items-center gap-1 group/btn" onclick="window.location.href='workshop.html'">
-                                    RESUME MODULE
+                                     Resume →
                                     <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
 </button>
 </div>
@@ -296,16 +306,17 @@
 </div>
 </div>
 <!-- Course Card 2 -->
-<div class="glass-card rounded-xl p-6 relative hover:border-secondary/40 transition-all duration-500 flex flex-col cursor-pointer" onclick="alert('This course is locked. Complete prerequisite courses to unlock.')">
+  <div class="glass-card rounded-xl p-6 relative hover:border-secondary/40 transition-all duration-500 flex flex-col cursor-pointer" data-course-card data-title="Advanced Supersonic Aerodynamics" data-category="aerodynamics" data-difficulty="advanced" data-progress="0" onclick="alert('This course is locked. Complete prerequisite courses to unlock.')">
 <div class="aspect-video bg-surface-container-high rounded mb-6 overflow-hidden relative">
 <img class="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal transition-all" data-alt="An artistic rendering of a supersonic aircraft slicing through clouds at high altitude, creating a visible vapor cone. The lighting is dramatic, with the sun setting on the horizon casting long, golden shadows across the sleek metallic body of the plane. The scene is rendered in a technical, minimalist style with high-altitude cyan and starship silver highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyQ0gp1xuMx3xRUv5xGygFMAhaBQA3XMKUEcWP1r0SllEbtrijQ5gxd61dDH4AmzIjJ4z-2AEpeATqCKgwteNLg5ThyRKvUBvy6ZOR1jTu_pf8ZJpCmcgDW1oisiCDljR8X0Lb3iQTieffK1R7oOUwFCICW6e7Rgyy_lQdNLHsksuIwkRav-MBrwNlMdB3_2MlklK5KcbH5QJP2Xlj5xr__9Bk6nqGTF9vCkB8E_9fnZpj6B9YSUpKqDTKcPQF3lQfFpRbeeWF9gE"/>
 </div>
-<div class="flex justify-between items-start mb-2">
-<span class="font-label-caps text-label-caps text-secondary">AERODYNAMICS // 401</span>
-<span class="font-label-caps text-label-caps text-on-surface-variant">128H</span>
+  <div class="flex justify-between items-start mb-2">
+  <span class="font-label-caps text-label-caps text-secondary">AERODYNAMICS // 401</span>
+  <button class="bookmark-button text-on-surface-variant hover:text-secondary transition-colors" aria-label="Bookmark Advanced Supersonic Aerodynamics" onclick="toggleBookmark(event, this)"><span class="material-symbols-outlined">bookmark</span></button>
 </div>
 <h3 class="font-headline-md text-headline-md mb-3">Advanced Supersonic Aerodynamics</h3>
-<p class="font-body-md text-body-md text-on-surface-variant mb-6">Exploring shockwave dynamics, boundary layer control, and heat shield thermal management at Mach 5+.</p>
+  <p class="font-body-md text-body-md text-on-surface-variant mb-4">Exploring shockwave dynamics, boundary layer control, and heat shield thermal management at Mach 5+.</p>
+  <div class="flex flex-wrap gap-x-4 gap-y-2 font-mono-data text-[11px] text-on-surface-variant mb-5"><span class="text-secondary">★★★★★</span><span>Advanced</span><span>24 Lessons</span><span>8 Hours</span></div>
 <div class="mt-auto">
 <div class="flex justify-between font-label-caps text-[10px] mb-2">
 <span class="text-on-surface-variant">COMPLETION STATUS</span>
@@ -316,21 +327,22 @@
 </div>
 <div class="flex items-center justify-between">
 <span class="font-label-caps text-label-caps text-error">RANK: COMMANDER</span>
-<button class="bg-surface-variant text-on-surface-variant px-4 py-2 font-label-caps text-[11px] rounded hover:text-secondary transition-colors">LOCKED</button>
+  <button class="bg-surface-variant text-on-surface-variant px-4 py-2 font-label-caps text-[11px] rounded hover:text-secondary transition-colors" onclick="event.stopPropagation(); alert('This course is locked. Complete prerequisite courses to unlock.')">Resume →</button>
 </div>
 </div>
 </div>
 <!-- Course Card 3 -->
-<div class="glass-card rounded-xl p-6 relative hover:border-secondary/40 transition-all duration-500 flex flex-col cursor-pointer" onclick="window.location.href='workshop.html'">
+  <div class="glass-card rounded-xl p-6 relative hover:border-secondary/40 transition-all duration-500 flex flex-col cursor-pointer" data-course-card data-title="Orbital Mechanics 101" data-category="orbital" data-difficulty="beginner" data-progress="92" onclick="window.location.href='workshop.html'">
 <div class="aspect-video bg-surface-container-high rounded mb-6 overflow-hidden relative">
 <img class="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal transition-all" data-alt="A technical visualization of a satellite orbiting the Earth, with glowing neon orbital paths and mathematical vectors overlaid on the dark vacuum of space. The Earth below is partially shadowed, showing city lights in a deep blue glow. The visual style is that of a high-tech mission control screen, with thin lines and data points in cyan and primary orange." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtpxQJAVOCQphUK9JBurGgGXEGSrAV04txBl4VHij2EjX5XqclLAfFoHvuA0YcC9f2rWWto3UEOOWd6WvLXbcJhLqCbSHlZ3Br4qgD9nlFZsAXViglj1gGpQT11SID8wdGV0LUOdSmCQuaKhMrAPaBZ0h-Y7pgbiO0MHexkGy0sQrevYNqU7r0i8R_nWtAai-rZTodVQHusnn3NqdYbWPDSrCp3wvff0EE_P7H9XxcuuETDdQVwQwfk-zvBzWsDI0NiJgWWz5-99Y"/>
 </div>
-<div class="flex justify-between items-start mb-2">
-<span class="font-label-caps text-label-caps text-secondary">ORBITAL // 101</span>
-<span class="font-label-caps text-label-caps text-on-surface-variant">12H</span>
+  <div class="flex justify-between items-start mb-2">
+  <span class="font-label-caps text-label-caps text-secondary">ORBITAL // 101</span>
+  <button class="bookmark-button text-on-surface-variant hover:text-secondary transition-colors" aria-label="Bookmark Orbital Mechanics 101" onclick="toggleBookmark(event, this)"><span class="material-symbols-outlined">bookmark</span></button>
 </div>
 <h3 class="font-headline-md text-headline-md mb-3">Orbital Mechanics 101</h3>
-<p class="font-body-md text-body-md text-on-surface-variant mb-6">Mastering Kepler's laws, Hohmann transfer orbits, and the precision of rendezvous maneuvers.</p>
+  <p class="font-body-md text-body-md text-on-surface-variant mb-4">Mastering Kepler's laws, Hohmann transfer orbits, and the precision of rendezvous maneuvers.</p>
+  <div class="flex flex-wrap gap-x-4 gap-y-2 font-mono-data text-[11px] text-on-surface-variant mb-5"><span class="text-secondary">★★★★★</span><span>Beginner</span><span>12 Lessons</span><span>3 Hours</span></div>
 <div class="mt-auto">
 <div class="flex justify-between font-label-caps text-[10px] mb-2">
 <span class="text-on-surface-variant">COMPLETION STATUS</span>
@@ -341,21 +353,22 @@
 </div>
 <div class="flex items-center justify-between">
 <span class="font-label-caps text-label-caps text-on-surface">RANK: CADET</span>
-<button class="bg-secondary text-on-secondary px-4 py-2 font-label-caps text-[11px] rounded hover:scale-105 transition-transform">COMPLETE</button>
+  <button class="bg-secondary text-on-secondary px-4 py-2 font-label-caps text-[11px] rounded hover:scale-105 transition-transform" onclick="event.stopPropagation(); window.location.href='workshop.html'">Resume →</button>
 </div>
 </div>
 </div>
 <!-- Course Card 4 -->
-<div class="glass-card rounded-xl p-6 relative hover:border-secondary/40 transition-all duration-500 flex flex-col">
+  <div class="glass-card rounded-xl p-6 relative hover:border-secondary/40 transition-all duration-500 flex flex-col" data-course-card data-title="Titanium Alloy Synthesis" data-category="materials" data-difficulty="intermediate" data-progress="15">
 <div class="aspect-video bg-surface-container-high rounded mb-6 overflow-hidden relative">
 <img class="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal transition-all" data-alt="A futuristic laboratory setting focusing on a 3D printer creating a complex lattice structure from aerospace-grade titanium. Subtle blue lasers scan the surface as it builds layer by layer. The lighting is cool and clinical, using a palette of whites and silvers with cyan accents, conveying a sense of extreme precision and advanced material science." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgsE4vXrj5ODWC6iLZtR_mbbGx-GPS0sH8Br6vtBTkK4WutEDu6vMnzUQ3AL-8AvBO5j9-9xTB2vekQcERc6AqQrPUP_cTuBoZ0ksCnwkgCkDdmU0vQKMfvKZsEjwCsR0x4_gn4VwnGNKK8z0OK0W7W-4PzOcABitV_ltM776Y2I5kAy2amVNNVx8Z8ZnpRUVG38TE-xt10B8tHQqrtCkbK5AvdNB8mV0xdDzsUZ_0HY1WzaHRO7MZS3SjE5lycE_xJ1A89Gbpoj4"/>
 </div>
-<div class="flex justify-between items-start mb-2">
-<span class="font-label-caps text-label-caps text-secondary">MATERIALS // 305</span>
-<span class="font-label-caps text-label-caps text-on-surface-variant">80H</span>
+  <div class="flex justify-between items-start mb-2">
+  <span class="font-label-caps text-label-caps text-secondary">MATERIALS // 305</span>
+  <button class="bookmark-button text-on-surface-variant hover:text-secondary transition-colors" aria-label="Bookmark Titanium Alloy Synthesis" onclick="toggleBookmark(event, this)"><span class="material-symbols-outlined">bookmark</span></button>
 </div>
 <h3 class="font-headline-md text-headline-md mb-3">Titanium Alloy Synthesis</h3>
-<p class="font-body-md text-body-md text-on-surface-variant mb-6">Metallurgy for extreme environments: synthesizing high-strength alloys for airframes and engine blocks.</p>
+  <p class="font-body-md text-body-md text-on-surface-variant mb-4">Metallurgy for extreme environments: synthesizing high-strength alloys for airframes and engine blocks.</p>
+  <div class="flex flex-wrap gap-x-4 gap-y-2 font-mono-data text-[11px] text-on-surface-variant mb-5"><span class="text-secondary">★★★★★</span><span>Intermediate</span><span>16 Lessons</span><span>5 Hours</span></div>
 <div class="mt-auto">
 <div class="flex justify-between font-label-caps text-[10px] mb-2">
 <span class="text-on-surface-variant">COMPLETION STATUS</span>
@@ -366,7 +379,7 @@
 </div>
 <div class="flex items-center justify-between">
 <span class="font-label-caps text-label-caps text-on-surface">RANK: LIEUTENANT</span>
-<button class="border border-secondary/40 text-secondary px-4 py-2 font-label-caps text-[11px] rounded hover:bg-secondary/10 transition-colors" onclick="window.location.href='workshop.html'">RESUME</button>
+  <button class="border border-secondary/40 text-secondary px-4 py-2 font-label-caps text-[11px] rounded hover:bg-secondary/10 transition-colors" onclick="window.location.href='workshop.html'">Resume →</button>
 </div>
 </div>
 </div>
@@ -417,6 +430,51 @@
 <span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">rocket</span>
 </button>
 <script>
+        const courseGrid = document.getElementById('course-grid');
+        const courseSearch = document.getElementById('course-search');
+        const courseCategory = document.getElementById('course-category');
+        const courseDifficulty = document.getElementById('course-difficulty');
+        const courseSort = document.getElementById('course-sort');
+        const courseResults = document.getElementById('course-results');
+
+        function toggleBookmark(event, button) {
+            event.stopPropagation();
+            const icon = button.querySelector('.material-symbols-outlined');
+            const isBookmarked = button.dataset.bookmarked === 'true';
+            button.dataset.bookmarked = String(!isBookmarked);
+            button.classList.toggle('text-secondary', !isBookmarked);
+            button.classList.toggle('text-on-surface-variant', isBookmarked);
+            icon.textContent = isBookmarked ? 'bookmark' : 'bookmark_added';
+            button.setAttribute('aria-pressed', String(!isBookmarked));
+        }
+
+        function updateCourseDiscovery() {
+            const searchTerm = courseSearch.value.trim().toLowerCase();
+            const category = courseCategory.value;
+            const difficulty = courseDifficulty.value;
+            const cards = Array.from(courseGrid.querySelectorAll('[data-course-card]'));
+
+            const visibleCards = cards.filter(card => {
+                const matchesSearch = card.dataset.title.toLowerCase().includes(searchTerm);
+                const matchesCategory = category === 'all' || card.dataset.category === category;
+                const matchesDifficulty = difficulty === 'all' || card.dataset.difficulty === difficulty;
+                const isVisible = matchesSearch && matchesCategory && matchesDifficulty;
+                card.classList.toggle('hidden', !isVisible);
+                return isVisible;
+            });
+
+            if (courseSort.value !== 'default') {
+                const direction = courseSort.value === 'high' ? -1 : 1;
+                cards.sort((a, b) => direction * (Number(a.dataset.progress) - Number(b.dataset.progress))).forEach(card => courseGrid.appendChild(card));
+            }
+
+            courseResults.textContent = `Showing ${visibleCards.length} ${visibleCards.length === 1 ? 'course' : 'courses'}`;
+        }
+
+        [courseSearch, courseCategory, courseDifficulty, courseSort].forEach(control => {
+            control.addEventListener(control === courseSearch ? 'input' : 'change', updateCourseDiscovery);
+        });
+
         // Micro-interactions for hover effects on progress bars
         document.querySelectorAll('.glass-card').forEach(card => {
             card.addEventListener('mouseenter', () => {
