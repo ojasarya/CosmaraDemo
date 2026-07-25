@@ -4,9 +4,10 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>COSMARA Dashboard | Your learning workspace</title>
-<script src="auth.js"></script>
-<script>window.COSMARA_AUTH.requireUser();</script>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="auth.js"></script>
+    <script>window.COSMARA_AUTH.requireUser();</script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Geist:wght@400;500&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -243,39 +244,35 @@
 <!-- Main Content Canvas -->
 <main class="md:ml-64 pt-24 px-container-margin pb-gutter">
 <div class="max-w-7xl mx-auto space-y-gutter">
-<!-- Hero Stats -->
-<section class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
-<div class="glass-panel schematic-bracket relative p-8 flex flex-col items-center justify-center text-center overflow-hidden">
-<span class="font-label-caps text-label-caps text-secondary mb-2">Missions Completed</span>
-<span class="font-headline-xl text-headline-xl text-primary">24</span>
-<div class="mt-4 flex gap-1">
-<div class="telemetry-bar-segment telemetry-bar-active"></div>
-<div class="telemetry-bar-segment telemetry-bar-active"></div>
-<div class="telemetry-bar-segment telemetry-bar-active"></div>
-<div class="telemetry-bar-segment"></div>
-</div>
-</div>
-<div class="glass-panel schematic-bracket relative p-8 flex flex-col items-center justify-center text-center overflow-hidden">
-<span class="font-label-caps text-label-caps text-secondary mb-2">Blueprints Created</span>
-<span class="font-headline-xl text-headline-xl text-primary">08</span>
-<div class="mt-4 flex gap-1">
-<div class="telemetry-bar-segment telemetry-bar-active"></div>
-<div class="telemetry-bar-segment"></div>
-<div class="telemetry-bar-segment"></div>
-<div class="telemetry-bar-segment"></div>
-</div>
-</div>
-<div class="glass-panel schematic-bracket relative p-8 flex flex-col items-center justify-center text-center overflow-hidden">
-<span class="font-label-caps text-label-caps text-secondary mb-2">Flight Hours</span>
-<span class="font-headline-xl text-headline-xl text-primary">156</span>
-<div class="mt-4 flex gap-1">
-<div class="telemetry-bar-segment telemetry-bar-active"></div>
-<div class="telemetry-bar-segment telemetry-bar-active"></div>
-<div class="telemetry-bar-segment"></div>
-<div class="telemetry-bar-segment"></div>
-</div>
-</div>
-</section>
+  <!-- Learner Welcome & Statistics -->
+  <section class="glass-panel schematic-bracket relative p-6 md:p-8 overflow-hidden">
+  <div class="absolute top-0 right-0 p-4 opacity-10" aria-hidden="true"><i data-lucide="orbit" class="w-28 h-28 text-secondary"></i></div>
+  <div class="relative z-10 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+  <div><p class="font-label-caps text-label-caps text-secondary mb-2">Command Deck</p><h1 class="font-headline-lg text-headline-lg text-on-surface">Good Morning, Engineer 👋</h1><p class="text-on-surface-variant font-body-md mt-2">Continue your aerospace journey.</p></div>
+  <dl class="grid grid-cols-3 gap-4 md:gap-8 text-left"><div><dt class="font-label-caps text-[10px] text-on-surface-variant">Current Level</dt><dd class="font-mono-data text-secondary mt-1">Level 4</dd></div><div><dt class="font-label-caps text-[10px] text-on-surface-variant">Current XP</dt><dd class="font-mono-data text-secondary mt-1">4,820 XP</dd></div><div><dt class="font-label-caps text-[10px] text-on-surface-variant">Next Level</dt><dd class="font-mono-data text-secondary mt-1">1,180 XP</dd></div></dl>
+  </div>
+  </section>
+  <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+  <article class="glass-panel schematic-bracket p-5 group transition-all duration-300 hover:-translate-y-1 hover:border-secondary/60 hover:shadow-lg hover:shadow-secondary/10"><div class="flex items-start justify-between"><div><p class="font-label-caps text-[10px] text-on-surface-variant">XP</p><p class="font-headline-md text-headline-md text-primary mt-2">4,820</p><p class="font-mono-data text-[11px] text-secondary mt-1">+320 this week</p></div><i data-lucide="sparkles" class="w-5 h-5 text-secondary group-hover:scale-110 transition-transform"></i></div></article>
+  <article class="glass-panel schematic-bracket p-5 group transition-all duration-300 hover:-translate-y-1 hover:border-secondary/60 hover:shadow-lg hover:shadow-secondary/10"><div class="flex items-start justify-between"><div><p class="font-label-caps text-[10px] text-on-surface-variant">Rank</p><p class="font-headline-md text-headline-md text-primary mt-2">Engineer</p><p class="font-mono-data text-[11px] text-secondary mt-1">Level 4</p></div><i data-lucide="badge-check" class="w-5 h-5 text-secondary group-hover:scale-110 transition-transform"></i></div></article>
+  <article class="glass-panel schematic-bracket p-5 group transition-all duration-300 hover:-translate-y-1 hover:border-secondary/60 hover:shadow-lg hover:shadow-secondary/10"><div class="flex items-start justify-between"><div><p class="font-label-caps text-[10px] text-on-surface-variant">Current Course</p><p class="font-headline-md text-headline-md text-primary mt-2">Thermal Systems</p><p class="font-mono-data text-[11px] text-secondary mt-1">65% complete</p></div><i data-lucide="book-open" class="w-5 h-5 text-secondary group-hover:scale-110 transition-transform"></i></div></article>
+  <article class="glass-panel schematic-bracket p-5 group transition-all duration-300 hover:-translate-y-1 hover:border-secondary/60 hover:shadow-lg hover:shadow-secondary/10"><div class="flex items-start justify-between"><div><p class="font-label-caps text-[10px] text-on-surface-variant">Hours Learned</p><p class="font-headline-md text-headline-md text-primary mt-2">36.5h</p><p class="font-mono-data text-[11px] text-secondary mt-1">+2.4h this week</p></div><i data-lucide="clock-3" class="w-5 h-5 text-secondary group-hover:scale-110 transition-transform"></i></div></article>
+  <article class="glass-panel schematic-bracket p-5 group transition-all duration-300 hover:-translate-y-1 hover:border-secondary/60 hover:shadow-lg hover:shadow-secondary/10"><div class="flex items-start justify-between"><div><p class="font-label-caps text-[10px] text-on-surface-variant">Certificates</p><p class="font-headline-md text-headline-md text-primary mt-2">04</p><p class="font-mono-data text-[11px] text-secondary mt-1">1 in progress</p></div><i data-lucide="award" class="w-5 h-5 text-secondary group-hover:scale-110 transition-transform"></i></div></article>
+  <article class="glass-panel schematic-bracket p-5 group transition-all duration-300 hover:-translate-y-1 hover:border-secondary/60 hover:shadow-lg hover:shadow-secondary/10"><div class="flex items-start justify-between"><div><p class="font-label-caps text-[10px] text-on-surface-variant">Projects Built</p><p class="font-headline-md text-headline-md text-primary mt-2">08</p><p class="font-mono-data text-[11px] text-secondary mt-1">3 active designs</p></div><i data-lucide="rocket" class="w-5 h-5 text-secondary group-hover:scale-110 transition-transform"></i></div></article>
+  </section>
+  <section class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+  <article class="lg:col-span-7 glass-panel p-6 rounded-xl"><div class="flex items-center justify-between mb-5 border-b border-outline-variant/30 pb-4"><h2 class="font-headline-md text-headline-md text-on-surface">Recent Activity</h2><span class="font-label-caps text-[10px] text-secondary">LAST 7 DAYS</span></div><div class="space-y-4">
+  <div class="flex gap-3 items-center"><span class="w-9 h-9 rounded bg-secondary/10 text-secondary flex items-center justify-center"><i data-lucide="book-open" class="w-4 h-4"></i></span><div class="flex-1"><p class="text-on-surface font-body-md">Completed lesson: Re-entry materials</p><p class="font-mono-data text-[11px] text-on-surface-variant">Today · +120 XP</p></div></div>
+  <div class="flex gap-3 items-center"><span class="w-9 h-9 rounded bg-primary/10 text-primary flex items-center justify-center"><i data-lucide="wrench" class="w-4 h-4"></i></span><div class="flex-1"><p class="text-on-surface font-body-md">Updated Voyager-9 propulsion layout</p><p class="font-mono-data text-[11px] text-on-surface-variant">Yesterday · Project</p></div></div>
+  <div class="flex gap-3 items-center"><span class="w-9 h-9 rounded bg-secondary/10 text-secondary flex items-center justify-center"><i data-lucide="award" class="w-4 h-4"></i></span><div class="flex-1"><p class="text-on-surface font-body-md">Earned Orbital Mechanics certificate</p><p class="font-mono-data text-[11px] text-on-surface-variant">2 days ago · Certificate</p></div></div>
+  <div class="flex gap-3 items-center"><span class="w-9 h-9 rounded bg-primary/10 text-primary flex items-center justify-center"><i data-lucide="orbit" class="w-4 h-4"></i></span><div class="flex-1"><p class="text-on-surface font-body-md">Ran a Mars transfer simulation</p><p class="font-mono-data text-[11px] text-on-surface-variant">3 days ago · Workshop</p></div></div>
+  <div class="flex gap-3 items-center"><span class="w-9 h-9 rounded bg-secondary/10 text-secondary flex items-center justify-center"><i data-lucide="flame" class="w-4 h-4"></i></span><div class="flex-1"><p class="text-on-surface font-body-md">Maintained your learning streak</p><p class="font-mono-data text-[11px] text-on-surface-variant">4 days ago · +50 XP</p></div></div>
+  </div></article>
+  <div class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
+  <article class="glass-panel p-6 rounded-xl flex items-center gap-5"><div class="relative w-24 h-24 rounded-full flex items-center justify-center" style="background: conic-gradient(#a6e6ff 0 67%, rgba(166, 230, 255, .15) 67% 100%);"><div class="w-20 h-20 rounded-full bg-surface flex flex-col items-center justify-center"><span class="font-headline-md text-primary">67%</span><span class="font-label-caps text-[9px] text-on-surface-variant">Progress</span></div></div><div><h2 class="font-headline-md text-headline-md text-on-surface">Learning Progress</h2><p class="font-mono-data text-[11px] text-on-surface-variant mt-1">3 of 5 modules complete</p></div></article>
+  <article class="glass-panel p-6 rounded-xl"><div class="flex items-center gap-3"><span class="w-10 h-10 rounded bg-error/10 text-error flex items-center justify-center"><i data-lucide="flame" class="w-5 h-5"></i></span><div><h2 class="font-headline-md text-headline-md text-on-surface">12 Day Streak</h2><p class="font-mono-data text-[11px] text-secondary">Learning consistently</p></div></div><dl class="grid grid-cols-2 gap-4 mt-5 pt-4 border-t border-outline-variant/30"><div><dt class="font-label-caps text-[9px] text-on-surface-variant">Longest Streak</dt><dd class="font-mono-data text-primary mt-1">18 days</dd></div><div><dt class="font-label-caps text-[9px] text-on-surface-variant">Today&apos;s Status</dt><dd class="font-mono-data text-secondary mt-1">Complete</dd></div></dl></article>
+  </div>
+  </section>
 <!-- Dashboard Body Grid -->
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
 <!-- Left: Mission & Gallery -->
@@ -437,9 +434,12 @@
         });
 
         // Smooth page transitions
-        document.addEventListener('DOMContentLoaded', () => {
-            document.body.classList.add('page-transition');
-            const currentUser = window.COSMARA_AUTH.getCurrentUser();
+         document.addEventListener('DOMContentLoaded', () => {
+             document.body.classList.add('page-transition');
+             if (window.lucide) {
+                 window.lucide.createIcons();
+             }
+             const currentUser = window.COSMARA_AUTH.getCurrentUser();
             if (currentUser) {
                 document.getElementById('current-user-name').textContent = `Signed in as ${currentUser.username}`;
             }
