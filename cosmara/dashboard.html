@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>COSMARA Dashboard | Your learning workspace</title>
+<script src="auth.js"></script>
+<script>window.COSMARA_AUTH.requireUser();</script>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Geist:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #10131a;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 32px 32px;
+            color: #e1e2eb;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        /* Page transition animation */
+        .page-transition {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* Scroll-triggered animations */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .scroll-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Enhanced button animations */
+        .btn-enhanced {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-enhanced:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 95, 31, 0.3);
+        }
+        .btn-enhanced:active {
+            transform: translateY(0);
+        }
+        .glass-panel {
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(166, 230, 255, 0.2);
+            background: rgba(29, 32, 38, 0.4);
+        }
+        .telemetry-bar-segment {
+            height: 8px;
+            width: 12px;
+            margin-right: 2px;
+            background: rgba(166, 230, 255, 0.2);
+            transition: background 0.3s ease;
+        }
+        .telemetry-bar-active {
+            background: #ffb59c;
+            box-shadow: 0 0 8px #ffb59c;
+        }
+        .rocket-flare-hover:hover {
+            background: linear-gradient(135deg, #ffb59c 0%, #ff5f1f 100%);
+            color: #390c00;
+            transform: translateY(-1px);
+        }
+        .schematic-bracket::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 12px; height: 12px;
+            border-top: 2px solid #a6e6ff;
+            border-left: 2px solid #a6e6ff;
+        }
+        .schematic-bracket::after {
+            content: '';
+            position: absolute;
+            bottom: 0; right: 0;
+            width: 12px; height: 12px;
+            border-bottom: 2px solid #a6e6ff;
+            border-right: 2px solid #a6e6ff;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#e3bfb3",
+                        "surface-container-low": "#191c22",
+                        "tertiary-container": "#8e959c",
+                        "on-background": "#e1e2eb",
+                        "surface-bright": "#363940",
+                        "outline-variant": "#5b4138",
+                        "surface-container-lowest": "#0b0e14",
+                        "secondary-container": "#14d1ff",
+                        "outline": "#aa897f",
+                        "on-tertiary-fixed": "#161c22",
+                        "inverse-surface": "#e1e2eb",
+                        "on-primary-fixed-variant": "#832700",
+                        "surface-container": "#1d2026",
+                        "primary": "#ffb59c",
+                        "on-secondary": "#003543",
+                        "on-primary-fixed": "#390c00",
+                        "primary-container": "#ff5f1f",
+                        "background": "#10131a",
+                        "on-tertiary": "#2b3137",
+                        "surface-variant": "#32353c",
+                        "secondary": "#a6e6ff",
+                        "secondary-fixed": "#b7eaff",
+                        "error-container": "#93000a",
+                        "surface": "#10131a",
+                        "surface-dim": "#10131a",
+                        "on-surface": "#e1e2eb",
+                        "error": "#ffb4ab",
+                        "inverse-on-surface": "#2e3037",
+                        "on-error": "#690005",
+                        "tertiary-fixed-dim": "#c1c7cf",
+                        "secondary-fixed-dim": "#4cd6ff",
+                        "surface-container-highest": "#32353c",
+                        "tertiary": "#c1c7cf",
+                        "on-error-container": "#ffdad6",
+                        "surface-tint": "#ffb59c",
+                        "on-primary-container": "#561700",
+                        "on-tertiary-container": "#272e34",
+                        "on-secondary-container": "#00566b",
+                        "on-secondary-fixed-variant": "#004e60",
+                        "surface-container-high": "#272a31",
+                        "on-primary": "#5c1900",
+                        "inverse-primary": "#ab3600",
+                        "primary-fixed": "#ffdbcf",
+                        "primary-fixed-dim": "#ffb59c",
+                        "on-secondary-fixed": "#001f28",
+                        "on-tertiary-fixed-variant": "#41474e",
+                        "tertiary-fixed": "#dde3eb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "section-gap": "64px",
+                        "container-margin": "32px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["JetBrains Mono"],
+                        "headline-xl": ["Space Grotesk"],
+                        "mono-data": ["JetBrains Mono"],
+                        "body-lg": ["Geist"],
+                        "headline-md": ["Space Grotesk"],
+                        "body-md": ["Geist"],
+                        "headline-lg": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "mono-data": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="font-body-md text-body-md page-transition">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-container-margin h-16 bg-surface/60 dark:bg-surface/60 backdrop-blur-md border-b border-secondary/20 shadow-sm shadow-secondary/10">
+<div class="flex items-center gap-8">
+<div class="w-12 h-12 flex items-center justify-center bg-transparent">
+<img src="logo.png" alt="COSMARA Logo" class="w-full h-full object-contain">
+</div>
+<a href="index.html" class="font-headline-md text-headline-md font-bold text-primary dark:text-primary tracking-tighter hover:text-secondary transition-colors">COSMARA</a>
+<nav class="hidden md:flex gap-6">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="academy.html">Academy</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="workshop.html">Workshop</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="blueprints.html">Blueprints</a>
+<a class="font-body-md text-body-md text-primary border-b-2 border-primary pb-1" href="dashboard.html">Dashboard</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex items-center px-4 py-1.5 glass-panel rounded-full border border-secondary/30">
+<span class="material-symbols-outlined text-secondary text-sm mr-2">account_circle</span>
+<span id="current-user-name" class="font-label-caps text-label-caps text-secondary">Signed in</span>
+</div>
+<button class="bg-primary-container text-on-primary-container font-label-caps text-label-caps px-6 py-2 rounded shadow-lg hover:scale-105 active:scale-95 transition-all" onclick="window.location.href='academy.html'">Quick-Start</button>
+<button class="w-10 h-10 rounded-full border-2 border-primary text-primary hover:bg-primary/10 transition-colors flex items-center justify-center" onclick="window.COSMARA_AUTH.signOut()" aria-label="Sign out" title="Sign out"><span class="material-symbols-outlined text-lg">logout</span></button>
+</div>
+</header>
+<!-- SideNavBar (Hidden on small screens) -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] z-40 flex flex-col hidden md:flex w-64 bg-surface-container/40 dark:bg-surface-container/40 backdrop-blur-xl border-r border-secondary/20 transition-all duration-300 ease-in-out">
+<div class="p-6 border-b border-outline-variant/30">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-secondary/20 rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary">settings_input_component</span>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm text-on-surface leading-tight">Workshop</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant text-[10px]">Engineering Suite</div>
+</div>
+</div>
+</div>
+<nav class="flex-1 p-4 flex flex-col gap-2">
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-bright/30 hover:text-secondary rounded-lg group transition-all" href="#">
+<span class="material-symbols-outlined">air</span>
+<span class="font-label-caps text-label-caps">Aerodynamics</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-bright/30 hover:text-secondary rounded-lg group transition-all" href="#">
+<span class="material-symbols-outlined">rocket_launch</span>
+<span class="font-label-caps text-label-caps">Propulsion</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-bright/30 hover:text-secondary rounded-lg group transition-all" href="#">
+<span class="material-symbols-outlined">architecture</span>
+<span class="font-label-caps text-label-caps">Materials</span>
+</a>
+</nav>
+<div class="p-4 border-t border-outline-variant/30">
+<button class="w-full py-3 border border-secondary text-secondary font-label-caps text-label-caps rounded flex items-center justify-center gap-2 hover:bg-secondary hover:text-on-secondary transition-all" onclick="window.location.href='workshop.html'">
+<span class="material-symbols-outlined text-sm">add</span> New Blueprint
+            </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 pt-24 px-container-margin pb-gutter">
+<div class="max-w-7xl mx-auto space-y-gutter">
+<!-- Hero Stats -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="glass-panel schematic-bracket relative p-8 flex flex-col items-center justify-center text-center overflow-hidden">
+<span class="font-label-caps text-label-caps text-secondary mb-2">Missions Completed</span>
+<span class="font-headline-xl text-headline-xl text-primary">24</span>
+<div class="mt-4 flex gap-1">
+<div class="telemetry-bar-segment telemetry-bar-active"></div>
+<div class="telemetry-bar-segment telemetry-bar-active"></div>
+<div class="telemetry-bar-segment telemetry-bar-active"></div>
+<div class="telemetry-bar-segment"></div>
+</div>
+</div>
+<div class="glass-panel schematic-bracket relative p-8 flex flex-col items-center justify-center text-center overflow-hidden">
+<span class="font-label-caps text-label-caps text-secondary mb-2">Blueprints Created</span>
+<span class="font-headline-xl text-headline-xl text-primary">08</span>
+<div class="mt-4 flex gap-1">
+<div class="telemetry-bar-segment telemetry-bar-active"></div>
+<div class="telemetry-bar-segment"></div>
+<div class="telemetry-bar-segment"></div>
+<div class="telemetry-bar-segment"></div>
+</div>
+</div>
+<div class="glass-panel schematic-bracket relative p-8 flex flex-col items-center justify-center text-center overflow-hidden">
+<span class="font-label-caps text-label-caps text-secondary mb-2">Flight Hours</span>
+<span class="font-headline-xl text-headline-xl text-primary">156</span>
+<div class="mt-4 flex gap-1">
+<div class="telemetry-bar-segment telemetry-bar-active"></div>
+<div class="telemetry-bar-segment telemetry-bar-active"></div>
+<div class="telemetry-bar-segment"></div>
+<div class="telemetry-bar-segment"></div>
+</div>
+</div>
+</section>
+<!-- Dashboard Body Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left: Mission & Gallery -->
+<div class="lg:col-span-8 space-y-gutter">
+<!-- Current Mission Card -->
+<section class="glass-panel p-gutter rounded-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-[120px]" style="font-variation-settings: 'FILL' 1;">rocket</span>
+</div>
+<div class="relative z-10 flex flex-col md:flex-row gap-8">
+<div class="w-full md:w-1/3 aspect-video rounded overflow-hidden border border-secondary/20">
+<img class="w-full h-full object-cover" data-alt="A cinematic, high-contrast photograph of a SpaceX Falcon 9 rocket ascending through a dark blue twilight sky, leaving a luminous, orange exhaust trail that cuts through thin clouds. The lighting is dramatic and technical, emphasizing the power and engineering precision of aerospace technology. The color palette is dominated by deep blacks, navy blues, and a brilliant, glowing orange center." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXJY-eXX5nJ1sjdk0h-lq22YWWcLG2njlSYCkGcUwIJk8e7pbofaM1zr4We4DAoNT-ISJYOA2NAmrv99JLbEhbT_jXxN3113b3u6Yk7Kv32-jhUxeAdZD7yKUwFdj9ONeLXU7jlkOfDlB2PzWk36_36jAxZur9-O9F_UAHcIeIeuHofXT7deXSLpsCnFfKiH9CEvwZS51gIATtm9V3nUwWdG68QUVlWBaCIzvKREducVVi405-QVxIb4t4Y10inZSWGyT5d6B2Oqo"/>
+</div>
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-secondary/10 text-secondary px-3 py-0.5 rounded-full font-label-caps text-[10px]">MISSION IN PROGRESS</span>
+<span class="font-mono-data text-mono-data text-on-surface-variant">Lvl 4: Advanced Avionics</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Thermodynamic Re-entry Shielding</h2>
+<p class="text-on-surface-variant font-body-md mb-6 max-w-lg">Module focuses on composite material stress under Mach 20+ conditions. Finalize the heat shield blueprint to unlock practical simulations.</p>
+<div class="flex items-center gap-6">
+<button class="bg-primary text-on-primary font-label-caps text-label-caps px-8 py-3 rounded rocket-flare-hover transition-all flex items-center gap-2" onclick="window.location.href='workshop.html'">
+                                        Resume Mission <span class="material-symbols-outlined text-sm">play_arrow</span>
+</button>
+<div class="flex-1 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[65%]" style="box-shadow: 0 0 10px #a6e6ff"></div>
+</div>
+<span class="font-mono-data text-mono-data text-secondary">65%</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Blueprint Gallery -->
+<section>
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline-md text-headline-md text-on-surface">Blueprint Gallery</h3>
+<button class="text-secondary font-label-caps text-label-caps flex items-center gap-2 hover:underline" onclick="window.location.href='workshop.html'">View All Archive <span class="material-symbols-outlined text-sm">chevron_right</span></button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+<div class="glass-panel p-4 rounded group hover:border-primary/50 transition-all cursor-pointer" onclick="window.location.href='workshop.html'">
+<div class="aspect-square bg-surface-container-low rounded mb-3 overflow-hidden border border-outline-variant/30">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-60" data-alt="A detailed digital 3D schematic rendering of a futuristic rocket engine, displayed as a translucent holographic projection with glowing cyan wireframe lines against a dark, technical background. The image features architectural callouts and mathematical data points, evoking a sense of high-precision engineering and aeronautic design. The lighting is soft and ambient with sharp, luminous highlights on the engine's core components." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0vY3GvAPdRrfR1ZxF6goUa68HXp3U8ie6-O9qlrydG7nvkhkGGXmR6yK-LCSdXOE9KCgvRrIV4tc6cL1FJ6y-0guOHl3CqJ6E27yLCHd0E-uI5LzLisNlDjhaHvP3kfpRutUN5uCBSWnkXANMxo3JBtW5fU9EXoC4n4dGlLf6x6GDZniDrxvudQEmPEmUDcPJDNLzZUKQvhtxwlbDCMHktW_DfbBV6y2Cy2ErFjnfTm5Bg83lg1VzeTh_AWeLYucojRwQNkmZ_2M"/>
+</div>
+<div class="font-label-caps text-label-caps text-on-surface">VOYAGER-9 CORE</div>
+<div class="font-mono-data text-[10px] text-on-surface-variant">Modified: 2h ago</div>
+</div>
+<div class="glass-panel p-4 rounded group hover:border-primary/50 transition-all cursor-pointer" onclick="window.location.href='workshop.html'">
+<div class="aspect-square bg-surface-container-low rounded mb-3 overflow-hidden border border-outline-variant/30">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-60" data-alt="A breathtaking view from a low-earth orbit satellite, showing the curvature of the Earth illuminated by the golden glow of a rising sun against the deep, star-studded blackness of space. Thin layers of the atmosphere are visible as a delicate blue halo. The scene captures the awe-inspiring perspective of aerospace exploration, utilizing a palette of deep cosmos blacks, brilliant sun golds, and atmospheric blues." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7e61B54SoEucT5lJbFPZLxRkop3htkATe8HjFW5Cxy_fiY7yAsJKZrT37LLNOoJitq8E15BzRyToj8GpUvItesXq7NLs1EJgHVpo02-S2u0j0dEZ45Jo1-o6tcfdaqJgIrdVRmF0GsR3bWUWoMIOk_Vd7Dep75MpJAn37bae5TXzganXfHMX-VNS_Q0L9swVLZaT5NQrpl9ENg8FmfQhtrKNVo-3x5XL_t_CFjYPXuxBiZ266EvschaW0F9z8ICpYki9HC0epNN0"/>
+</div>
+<div class="font-label-caps text-label-caps text-on-surface">STRATO-GLIDER V2</div>
+<div class="font-mono-data text-[10px] text-on-surface-variant">Modified: 1d ago</div>
+</div>
+<div class="glass-panel p-4 rounded group hover:border-primary/50 transition-all cursor-pointer" onclick="window.location.href='workshop.html'">
+<div class="aspect-square bg-surface-container-low rounded mb-3 overflow-hidden border border-outline-variant/30">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-60" data-alt="An abstract digital representation of complex aerospace data flows, featuring glowing blue and violet neural-like networks and geometric patterns interconnecting across a dark digital canvas. The visual style is sleek and technical, resembling a high-speed data processing screen in a mission control center. Neon accents of electric blue and soft magenta provide a futuristic, forward-looking aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXocKxJu-8XPjeBMviPLuv40z9ZXxdhKWLzS7mAuYTgrrKPrcDg4PiMm8X1Ca2IEdq1ShQJKTv13p7pm9NCZ5S7BvM-QXQl76Z_bodrZjuCroFrWL4oume04xLRCa3vH0C2eV9HQlO9b-AcI4zVB3PwMW_JzOBEsv9qXRotudnwCP-AWvT3K7g2BbvCuMTkAKsdLKtr0g5FuiPCI8KyTmc-vYSPcVxdbrw5sc1mMXLE8KlH6pFr8tM5FZytanzI4fEuTNeRU14TCo"/>
+</div>
+<div class="font-label-caps text-label-caps text-on-surface">ORBITAL ARRAY</div>
+<div class="font-mono-data text-[10px] text-on-surface-variant">Modified: 5d ago</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right: Notification Sidebar -->
+<aside class="lg:col-span-4 space-y-gutter">
+<div class="glass-panel p-6 rounded-xl h-full flex flex-col">
+<div class="flex items-center justify-between mb-6 border-b border-outline-variant/30 pb-4">
+<h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">satellite_alt</span>
+                                Ground Control
+                            </h3>
+<span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
+</div>
+<div class="space-y-6 flex-1 overflow-y-auto pr-2 custom-scrollbar">
+<div class="border-l-2 border-secondary pl-4 py-1">
+<div class="font-label-caps text-[10px] text-secondary mb-1">09:45 ZULU</div>
+<div class="font-body-md text-on-surface font-medium">New Academy Module Unlocked</div>
+<p class="text-mono-data text-[12px] text-on-surface-variant mt-1">Cryogenic Propulsion Systems is now available for Commander rank.</p>
+</div>
+<div class="border-l-2 border-outline-variant/30 pl-4 py-1">
+<div class="font-label-caps text-[10px] text-on-surface-variant mb-1">Yesterday</div>
+<div class="font-body-md text-on-surface font-medium">Blueprint Certified</div>
+<p class="text-mono-data text-[12px] text-on-surface-variant mt-1">Your 'VOYAGER-9' blueprint passed structural simulation with 98% efficiency.</p>
+</div>
+<div class="border-l-2 border-outline-variant/30 pl-4 py-1">
+<div class="font-label-caps text-[10px] text-on-surface-variant mb-1">Yesterday</div>
+<div class="font-body-md text-on-surface font-medium">Workshop Maintenance</div>
+<p class="text-mono-data text-[12px] text-on-surface-variant mt-1">System update at 03:00 UTC. Expect 15 min downtime in CFD servers.</p>
+</div>
+<div class="border-l-2 border-primary pl-4 py-1">
+<div class="font-label-caps text-[10px] text-primary mb-1">2d Ago</div>
+<div class="font-body-md text-on-surface font-medium">Achievement: Mach Master</div>
+<p class="text-mono-data text-[12px] text-on-surface-variant mt-1">Completed 5 consecutive missions with zero simulation errors.</p>
+</div>
+</div>
+<div class="mt-8">
+<div class="p-4 bg-surface-container rounded border border-outline-variant/20">
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-caps text-[10px] text-on-surface-variant">System Status</span>
+<span class="font-label-caps text-[10px] text-secondary">Nominal</span>
+</div>
+<div class="flex gap-0.5">
+<div class="h-1 flex-1 bg-secondary shadow-[0_0_5px_#a6e6ff]"></div>
+<div class="h-1 flex-1 bg-secondary shadow-[0_0_5px_#a6e6ff]"></div>
+<div class="h-1 flex-1 bg-secondary shadow-[0_0_5px_#a6e6ff]"></div>
+<div class="h-1 flex-1 bg-secondary shadow-[0_0_5px_#a6e6ff]"></div>
+<div class="h-1 flex-1 bg-secondary/20"></div>
+</div>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-gutter px-container-margin flex justify-between items-center bg-surface-container-lowest border-t border-outline-variant/30">
+<div class="flex items-center gap-6">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Status: All Systems Go</span>
+<div class="hidden sm:flex gap-4">
+<a class="font-mono-data text-mono-data text-tertiary hover:text-primary underline opacity-80 hover:opacity-100 transition-all" href="#">Documentation</a>
+<a class="font-mono-data text-mono-data text-tertiary hover:text-primary underline opacity-80 hover:opacity-100 transition-all" href="#">Safety Protocols</a>
+<a class="font-mono-data text-mono-data text-tertiary hover:text-primary underline opacity-80 hover:opacity-100 transition-all" href="#">Ground Control</a>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-caps text-label-caps text-on-surface-variant opacity-50">COSMARA // UNIT 01</span>
+</div>
+</footer>
+<script>
+        // Simple micro-interaction for telemetry bars
+        document.querySelectorAll('.telemetry-bar-segment').forEach((seg, idx) => {
+            seg.style.transitionDelay = `${idx * 100}ms`;
+        });
+
+        // Background parallax effect for mouse
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            document.body.style.backgroundPosition = `${moveX}px ${moveY}px`;
+        });
+
+        // Scroll-triggered animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-animate').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth page transitions
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.classList.add('page-transition');
+            const currentUser = window.COSMARA_AUTH.getCurrentUser();
+            if (currentUser) {
+                document.getElementById('current-user-name').textContent = `Signed in as ${currentUser.username}`;
+            }
+        });
+    </script>
+</body></html>

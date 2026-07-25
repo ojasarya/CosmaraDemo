@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>COSMARA Academy | Engineering Course Catalog</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;600&amp;family=Geist:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #10131a;
+            background-image: 
+                linear-gradient(rgba(170, 137, 127, 0.05) 1px, transparent 1px),
+                linear-gradient(90px, rgba(170, 137, 127, 0.05) 1px, transparent 1px);
+            background-size: 32px 32px;
+            scroll-behavior: smooth;
+        }
+        /* Page transition animation */
+        .page-transition {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* Scroll-triggered animations */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .scroll-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Enhanced button animations */
+        .btn-enhanced {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-enhanced:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 95, 31, 0.3);
+        }
+        .btn-enhanced:active {
+            transform: translateY(0);
+        }
+        .glass-card {
+            background: rgba(29, 32, 38, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(166, 230, 255, 0.1);
+        }
+        .telemetry-segment {
+            height: 6px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            gap: 2px;
+        }
+        .telemetry-segment-fill {
+            height: 100%;
+            background: #ffb59c;
+            box-shadow: 0 0 10px #ffb59c;
+        }
+        .rocket-flare-hover:hover {
+            background: linear-gradient(135deg, #ffb59c 0%, #ff5f1f 100%);
+            box-shadow: 0 0 20px rgba(255, 95, 31, 0.4);
+        }
+        .schematic-bracket::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            border-top: 1px solid #a6e6ff;
+            border-left: 1px solid #a6e6ff;
+        }
+        .schematic-bracket::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 8px;
+            height: 8px;
+            border-bottom: 1px solid #a6e6ff;
+            border-right: 1px solid #a6e6ff;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-surface-variant": "#e3bfb3",
+                      "surface-container-low": "#191c22",
+                      "tertiary-container": "#8e959c",
+                      "on-background": "#e1e2eb",
+                      "surface-bright": "#363940",
+                      "outline-variant": "#5b4138",
+                      "surface-container-lowest": "#0b0e14",
+                      "secondary-container": "#14d1ff",
+                      "outline": "#aa897f",
+                      "on-tertiary-fixed": "#161c22",
+                      "inverse-surface": "#e1e2eb",
+                      "on-primary-fixed-variant": "#832700",
+                      "surface-container": "#1d2026",
+                      "primary": "#ffb59c",
+                      "on-secondary": "#003543",
+                      "on-primary-fixed": "#390c00",
+                      "primary-container": "#ff5f1f",
+                      "background": "#10131a",
+                      "on-tertiary": "#2b3137",
+                      "surface-variant": "#32353c",
+                      "secondary": "#a6e6ff",
+                      "secondary-fixed": "#b7eaff",
+                      "error-container": "#93000a",
+                      "surface": "#10131a",
+                      "surface-dim": "#10131a",
+                      "on-surface": "#e1e2eb",
+                      "error": "#ffb4ab",
+                      "inverse-on-surface": "#2e3037",
+                      "on-error": "#690005",
+                      "tertiary-fixed-dim": "#c1c7cf",
+                      "secondary-fixed-dim": "#4cd6ff",
+                      "surface-container-highest": "#32353c",
+                      "tertiary": "#c1c7cf",
+                      "on-error-container": "#ffdad6",
+                      "surface-tint": "#ffb59c",
+                      "on-primary-container": "#561700",
+                      "on-tertiary-container": "#272e34",
+                      "on-secondary-container": "#00566b",
+                      "on-secondary-fixed-variant": "#004e60",
+                      "surface-container-high": "#272a31",
+                      "on-primary": "#5c1900",
+                      "inverse-primary": "#ab3600",
+                      "primary-fixed": "#ffdbcf",
+                      "primary-fixed-dim": "#ffb59c",
+                      "on-secondary-fixed": "#001f28",
+                      "on-tertiary-fixed-variant": "#41474e",
+                      "tertiary-fixed": "#dde3eb"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "section-gap": "64px",
+                      "container-margin": "32px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "label-caps": ["JetBrains Mono"],
+                      "headline-xl": ["Space Grotesk"],
+                      "mono-data": ["JetBrains Mono"],
+                      "body-lg": ["Geist"],
+                      "headline-md": ["Space Grotesk"],
+                      "body-md": ["Geist"],
+                      "headline-lg": ["Space Grotesk"]
+              },
+              "fontSize": {
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                      "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "mono-data": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="antialiased text-on-surface page-transition">
+<!-- TopNavBar -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-container-margin h-16 bg-surface/60 backdrop-blur-md border-b border-secondary/20 shadow-sm shadow-secondary/10">
+<div class="flex items-center gap-8">
+<div class="w-12 h-12 flex items-center justify-center bg-transparent">
+<img src="logo.png" alt="COSMARA Logo" class="w-full h-full object-contain">
+</div>
+<a href="index.html" class="font-headline-md text-headline-md font-bold text-primary tracking-tighter hover:text-secondary transition-colors">COSMARA</a>
+<div class="hidden md:flex gap-6">
+<a class="font-body-md text-body-md text-primary border-b-2 border-primary pb-1 transition-colors duration-200" href="academy.html">Academy</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="workshop.html">Workshop</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="blueprints.html">Blueprints</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="dashboard.html">Dashboard</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-label-caps text-label-caps text-secondary hidden sm:inline">Rank: Commander</span>
+<button class="bg-primary text-on-primary px-4 py-2 font-label-caps text-label-caps rounded-lg hover:scale-95 transition-transform rocket-flare-hover" onclick="window.location.href='workshop.html'">Quick-Start</button>
+<div class="w-8 h-8 rounded-full border border-secondary/40 overflow-hidden">
+<img alt="User Rank Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDw7OoZj9MAkL--Ne7HAtivc-n2fP9C1dnfz0961dSQIWsguIzeh1Y1MjwbdKxjBCLhWgR8O4tS0e-Iryz04MqrfNzDnxPX9iLh7sw5tll2o_kKYjGHk5NInyR0_GaSVJd2u1Qt4Yh8VEReZDCYt8s5G3-kujMrkJhrS4mf-meqJLpvEYj99hWi3Y1YtM_wUKkZ2PYI41pHLwdBzVk21j6bzl61Sdz3vL73vfya2PLdFroFmBvrIJXwTkFcnx8vA8R4TnaxjPGzB0Y"/>
+</div>
+</div>
+</nav>
+<div class="flex pt-16">
+<!-- SideNavBar -->
+<aside class="hidden lg:flex fixed left-0 top-16 h-[calc(100vh-64px)] w-64 flex-col bg-surface-container/40 backdrop-blur-xl border-r border-secondary/20 z-40 p-6">
+<div class="mb-8">
+<h2 class="font-headline-sm text-[20px] text-on-surface">Workshop</h2>
+<p class="font-label-caps text-label-caps text-on-surface-variant opacity-70">Engineering Suite</p>
+</div>
+<nav class="flex flex-col gap-2 flex-grow">
+<a class="flex items-center gap-3 p-3 text-secondary font-bold bg-secondary/10 rounded-lg transition-all duration-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">air</span>
+<span class="font-label-caps text-label-caps">Aerodynamics</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-bright/30 hover:text-secondary rounded-lg transition-all duration-300" href="#">
+<span class="material-symbols-outlined">rocket_launch</span>
+<span class="font-label-caps text-label-caps">Propulsion</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-bright/30 hover:text-secondary rounded-lg transition-all duration-300" href="#">
+<span class="material-symbols-outlined">architecture</span>
+<span class="font-label-caps text-label-caps">Materials</span>
+</a>
+</nav>
+<button class="mt-auto border border-secondary/40 text-secondary p-3 font-label-caps text-label-caps rounded-lg hover:bg-secondary/10 transition-colors flex items-center justify-center gap-2" onclick="window.location.href='workshop.html'">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                New Blueprint
+            </button>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-grow lg:ml-64 p-8 min-h-screen scroll-animate">
+<header class="mb-12">
+<div class="flex justify-between items-end">
+<div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface mb-2">Curriculum Catalog</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Access advanced technical modules designed for the next generation of aerospace pioneers. Track your rank progression through telemetry-synced training.</p>
+</div>
+<div class="hidden xl:block">
+<div class="glass-card p-4 rounded-xl border-secondary/20 flex gap-8">
+<div class="text-center">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">XP PROGRESS</p>
+<p class="font-mono-data text-mono-data text-secondary">84,200 / 100k</p>
+</div>
+<div class="text-center border-l border-secondary/20 pl-8">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">CERTIFICATIONS</p>
+<p class="font-mono-data text-mono-data text-secondary">12 ACTIVE</p>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Course Grid (Asymmetric Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter scroll-animate">
+<!-- Course Card 1: Large Featured -->
+<div class="glass-card rounded-xl p-6 relative schematic-bracket flex flex-col md:col-span-2 hover:border-secondary/40 transition-all duration-500 group cursor-pointer" onclick="window.location.href='workshop.html'">
+<div class="flex flex-col md:flex-row gap-6">
+<div class="w-full md:w-1/2 aspect-video bg-surface-container-high rounded overflow-hidden relative">
+<img class="w-full h-full object-cover mix-blend-luminosity group-hover:mix-blend-normal transition-all duration-700" data-alt="A highly detailed close-up shot of a rocket engine nozzle during a static fire test. Intense orange and blue flames erupt with technical precision, illuminating a dark, industrial testing facility. The aesthetic is gritty yet high-tech, featuring a dark mode color palette of deep grays, vibrant oranges, and cyan accents, reflecting a mission control atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJbhFxG0Y3mGrHfP925kvgL2ez_6ddZrEa11Fr_eE7x806uF3I4bmS0spg9tHBG_U2wfTQ2mxUpYvpPA455ZLYrkfHQ2aVfrjzMKJmjfFTBzgGt27m2RttzTbSIpoX_WgQr9fHOUX0XThCo_3BdvMgj7ySD3Bh6v1kbNCWCj-e05e8mYcr1rZAnoZ-1PnzkxK9wqGU-GGfgt3TMIjUJj9c02rOip9vKM7EsjwTlAsUOpgHlT7gE-4JbxyNN3W_IniPNjP_J_a5Tjk"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent opacity-60"></div>
+<div class="absolute top-3 left-3 bg-primary-container text-on-primary-container font-label-caps text-[10px] px-2 py-1 rounded">CORE MODULE</div>
+</div>
+<div class="w-full md:w-1/2 flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-caps text-label-caps text-secondary">PROPULSION // 204</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">42H 15M</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg mb-3">Fundamentals of Rocketry</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow">A deep dive into chemical propulsion systems, nozzle design, and cryogenic fuel management systems.</p>
+<div class="space-y-2 mb-6">
+<div class="flex justify-between font-label-caps text-[10px]">
+<span class="text-on-surface-variant">COMPLETION STATUS</span>
+<span class="text-primary">65%</span>
+</div>
+<div class="telemetry-segment">
+<div class="telemetry-segment-fill" style="width: 65%;"></div>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">verified_user</span>
+<span class="font-label-caps text-label-caps">RANK: ENSIGN</span>
+</div>
+<button class="font-label-caps text-label-caps text-secondary flex items-center gap-1 group/btn" onclick="window.location.href='workshop.html'">
+                                    RESUME MODULE
+                                    <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Course Card 2 -->
+<div class="glass-card rounded-xl p-6 relative hover:border-secondary/40 transition-all duration-500 flex flex-col cursor-pointer" onclick="alert('This course is locked. Complete prerequisite courses to unlock.')">
+<div class="aspect-video bg-surface-container-high rounded mb-6 overflow-hidden relative">
+<img class="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal transition-all" data-alt="An artistic rendering of a supersonic aircraft slicing through clouds at high altitude, creating a visible vapor cone. The lighting is dramatic, with the sun setting on the horizon casting long, golden shadows across the sleek metallic body of the plane. The scene is rendered in a technical, minimalist style with high-altitude cyan and starship silver highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyQ0gp1xuMx3xRUv5xGygFMAhaBQA3XMKUEcWP1r0SllEbtrijQ5gxd61dDH4AmzIjJ4z-2AEpeATqCKgwteNLg5ThyRKvUBvy6ZOR1jTu_pf8ZJpCmcgDW1oisiCDljR8X0Lb3iQTieffK1R7oOUwFCICW6e7Rgyy_lQdNLHsksuIwkRav-MBrwNlMdB3_2MlklK5KcbH5QJP2Xlj5xr__9Bk6nqGTF9vCkB8E_9fnZpj6B9YSUpKqDTKcPQF3lQfFpRbeeWF9gE"/>
+</div>
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-caps text-label-caps text-secondary">AERODYNAMICS // 401</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">128H</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3">Advanced Supersonic Aerodynamics</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Exploring shockwave dynamics, boundary layer control, and heat shield thermal management at Mach 5+.</p>
+<div class="mt-auto">
+<div class="flex justify-between font-label-caps text-[10px] mb-2">
+<span class="text-on-surface-variant">COMPLETION STATUS</span>
+<span class="text-outline">0%</span>
+</div>
+<div class="telemetry-segment mb-6">
+<div class="telemetry-segment-fill" style="width: 0%;"></div>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-error">RANK: COMMANDER</span>
+<button class="bg-surface-variant text-on-surface-variant px-4 py-2 font-label-caps text-[11px] rounded hover:text-secondary transition-colors">LOCKED</button>
+</div>
+</div>
+</div>
+<!-- Course Card 3 -->
+<div class="glass-card rounded-xl p-6 relative hover:border-secondary/40 transition-all duration-500 flex flex-col cursor-pointer" onclick="window.location.href='workshop.html'">
+<div class="aspect-video bg-surface-container-high rounded mb-6 overflow-hidden relative">
+<img class="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal transition-all" data-alt="A technical visualization of a satellite orbiting the Earth, with glowing neon orbital paths and mathematical vectors overlaid on the dark vacuum of space. The Earth below is partially shadowed, showing city lights in a deep blue glow. The visual style is that of a high-tech mission control screen, with thin lines and data points in cyan and primary orange." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtpxQJAVOCQphUK9JBurGgGXEGSrAV04txBl4VHij2EjX5XqclLAfFoHvuA0YcC9f2rWWto3UEOOWd6WvLXbcJhLqCbSHlZ3Br4qgD9nlFZsAXViglj1gGpQT11SID8wdGV0LUOdSmCQuaKhMrAPaBZ0h-Y7pgbiO0MHexkGy0sQrevYNqU7r0i8R_nWtAai-rZTodVQHusnn3NqdYbWPDSrCp3wvff0EE_P7H9XxcuuETDdQVwQwfk-zvBzWsDI0NiJgWWz5-99Y"/>
+</div>
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-caps text-label-caps text-secondary">ORBITAL // 101</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">12H</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3">Orbital Mechanics 101</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Mastering Kepler's laws, Hohmann transfer orbits, and the precision of rendezvous maneuvers.</p>
+<div class="mt-auto">
+<div class="flex justify-between font-label-caps text-[10px] mb-2">
+<span class="text-on-surface-variant">COMPLETION STATUS</span>
+<span class="text-primary">92%</span>
+</div>
+<div class="telemetry-segment mb-6">
+<div class="telemetry-segment-fill" style="width: 92%;"></div>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface">RANK: CADET</span>
+<button class="bg-secondary text-on-secondary px-4 py-2 font-label-caps text-[11px] rounded hover:scale-105 transition-transform">COMPLETE</button>
+</div>
+</div>
+</div>
+<!-- Course Card 4 -->
+<div class="glass-card rounded-xl p-6 relative hover:border-secondary/40 transition-all duration-500 flex flex-col">
+<div class="aspect-video bg-surface-container-high rounded mb-6 overflow-hidden relative">
+<img class="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal transition-all" data-alt="A futuristic laboratory setting focusing on a 3D printer creating a complex lattice structure from aerospace-grade titanium. Subtle blue lasers scan the surface as it builds layer by layer. The lighting is cool and clinical, using a palette of whites and silvers with cyan accents, conveying a sense of extreme precision and advanced material science." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgsE4vXrj5ODWC6iLZtR_mbbGx-GPS0sH8Br6vtBTkK4WutEDu6vMnzUQ3AL-8AvBO5j9-9xTB2vekQcERc6AqQrPUP_cTuBoZ0ksCnwkgCkDdmU0vQKMfvKZsEjwCsR0x4_gn4VwnGNKK8z0OK0W7W-4PzOcABitV_ltM776Y2I5kAy2amVNNVx8Z8ZnpRUVG38TE-xt10B8tHQqrtCkbK5AvdNB8mV0xdDzsUZ_0HY1WzaHRO7MZS3SjE5lycE_xJ1A89Gbpoj4"/>
+</div>
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-caps text-label-caps text-secondary">MATERIALS // 305</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">80H</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3">Titanium Alloy Synthesis</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Metallurgy for extreme environments: synthesizing high-strength alloys for airframes and engine blocks.</p>
+<div class="mt-auto">
+<div class="flex justify-between font-label-caps text-[10px] mb-2">
+<span class="text-on-surface-variant">COMPLETION STATUS</span>
+<span class="text-primary">15%</span>
+</div>
+<div class="telemetry-segment mb-6">
+<div class="telemetry-segment-fill" style="width: 15%;"></div>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface">RANK: LIEUTENANT</span>
+<button class="border border-secondary/40 text-secondary px-4 py-2 font-label-caps text-[11px] rounded hover:bg-secondary/10 transition-colors" onclick="window.location.href='workshop.html'">RESUME</button>
+</div>
+</div>
+</div>
+<!-- Course Card 5: Information Density Block -->
+<div class="glass-card rounded-xl p-6 relative hover:border-secondary/40 transition-all duration-500 bg-secondary/5 border-dashed border-secondary/30">
+<div class="h-full flex flex-col justify-center text-center p-4">
+<span class="material-symbols-outlined text-secondary text-[48px] mb-4">terminal</span>
+<h3 class="font-headline-md text-headline-md mb-2">Simulated Flight Tests</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Next calibration window opens in 04:22:15. Prepare your telemetry scripts for high-altitude validation.</p>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between border-b border-secondary/10 py-2">
+<span class="font-label-caps text-[10px] text-on-surface-variant">NEXT WINDOW</span>
+<span class="font-mono-data text-[10px] text-secondary">UTC 22:45</span>
+</div>
+<div class="flex justify-between border-b border-secondary/10 py-2">
+<span class="font-label-caps text-[10px] text-on-surface-variant">SERVER STATUS</span>
+<span class="font-mono-data text-[10px] text-primary">OPERATIONAL</span>
+</div>
+</div>
+<button class="mt-6 w-full py-3 border border-secondary/20 font-label-caps text-label-caps rounded hover:bg-secondary/10 transition-all" onclick="window.location.href='workshop.html'">VIEW TEST SCHEDULE</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="w-full py-gutter px-container-margin flex flex-col md:flex-row justify-between items-center bg-surface-container-lowest border-t border-outline-variant/30 mt-section-gap">
+<div class="flex flex-col items-center md:items-start mb-6 md:mb-0">
+<span class="font-label-caps text-label-caps text-on-surface-variant">COSMARA Academy // System Version 4.2.0</span>
+<p class="font-mono-data text-mono-data text-tertiary mt-2">Status: All Systems Go</p>
+</div>
+<div class="flex gap-8">
+<a class="font-mono-data text-mono-data text-on-surface-variant hover:text-primary underline transition-opacity opacity-80 hover:opacity-100" href="#">Documentation</a>
+<a class="font-mono-data text-mono-data text-on-surface-variant hover:text-primary underline transition-opacity opacity-80 hover:opacity-100" href="#">Safety Protocols</a>
+<a class="font-mono-data text-mono-data text-on-surface-variant hover:text-primary underline transition-opacity opacity-80 hover:opacity-100" href="#">Ground Control</a>
+</div>
+<div class="mt-6 md:mt-0 flex items-center gap-4">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full border border-background bg-secondary/20"></div>
+<div class="w-6 h-6 rounded-full border border-background bg-primary/20"></div>
+<div class="w-6 h-6 rounded-full border border-background bg-tertiary/20"></div>
+</div>
+<span class="font-label-caps text-[10px] text-on-surface-variant opacity-60">1.2k USERS ONLINE</span>
+</div>
+</footer>
+<!-- FAB (Contextual) -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-on-primary-container rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform active:scale-90 z-50 rocket-flare-hover" onclick="window.location.href='workshop.html'">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">rocket</span>
+</button>
+<script>
+        // Micro-interactions for hover effects on progress bars
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const fill = card.querySelector('.telemetry-segment-fill');
+                if (fill) {
+                    fill.style.filter = 'brightness(1.5) drop-shadow(0 0 5px #ffb59c)';
+                }
+            });
+            card.addEventListener('mouseleave', () => {
+                const fill = card.querySelector('.telemetry-segment-fill');
+                if (fill) {
+                    fill.style.filter = 'none';
+                }
+            });
+        });
+
+        // Scroll-triggered animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-animate').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth page transitions
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.classList.add('page-transition');
+        });
+    </script>
+</body></html>

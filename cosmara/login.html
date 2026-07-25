@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Sign in to COSMARA or create a new learning profile.">
+    <title>Sign in | COSMARA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..700,0..1,0..200" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #eff6ff;
+            --muted: #a9b7ca;
+            --night: #07111f;
+            --surface: #0e2034;
+            --surface-raised: #122a43;
+            --line: rgba(178, 221, 255, .2);
+            --cyan: #8adfff;
+            --orange: #ff8a56;
+            --error: #ffb4ab;
+            --success: #91f5c2;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            min-width: 320px;
+            min-height: 100vh;
+            margin: 0;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at 85% 14%, rgba(46, 153, 220, .18), transparent 25rem),
+                radial-gradient(circle at 12% 85%, rgba(255, 121, 75, .1), transparent 24rem),
+                var(--night);
+            font-family: "Space Grotesk", sans-serif;
+        }
+
+        body::before {
+            position: fixed;
+            z-index: -1;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(144, 205, 255, .035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(144, 205, 255, .035) 1px, transparent 1px);
+            background-size: 42px 42px;
+            content: "";
+            pointer-events: none;
+        }
+
+        a { color: inherit; text-decoration: none; }
+        button, input { font: inherit; }
+
+        .shell { width: min(calc(100% - 2.5rem), 1120px); margin: 0 auto; }
+        .site-header { padding: 1.35rem 0; }
+        .header-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+        .brand { display: inline-flex; align-items: center; gap: .7rem; font-size: 1.18rem; font-weight: 700; letter-spacing: -.05em; }
+        .brand img { width: 2.15rem; height: 2.15rem; object-fit: contain; }
+        .back-link { display: inline-flex; align-items: center; gap: .35rem; color: var(--muted); font-size: .9rem; }
+        .back-link:hover { color: var(--cyan); }
+        .back-link .material-symbols-outlined { font-size: 1.05rem; }
+
+        main { display: grid; min-height: calc(100vh - 6rem); padding: 2rem 0 4rem; place-items: center; }
+        .auth-layout { display: grid; width: min(100%, 61rem); grid-template-columns: minmax(0, .88fr) minmax(21rem, 1.12fr); overflow: hidden; background: rgba(13, 31, 51, .82); border: 1px solid var(--line); border-radius: 1rem; box-shadow: 0 25px 80px rgba(0, 0, 0, .3); }
+
+        .context-panel { position: relative; display: flex; min-height: 36rem; flex-direction: column; justify-content: flex-end; padding: 2.6rem; overflow: hidden; background: linear-gradient(145deg, rgba(22, 65, 97, .92), rgba(10, 29, 50, .95)); }
+        .context-panel::before { position: absolute; width: 22rem; height: 22rem; top: -7rem; right: -8rem; border: 1px solid rgba(138, 223, 255, .3); border-radius: 50%; box-shadow: 0 0 0 3rem rgba(138, 223, 255, .035), 0 0 0 6rem rgba(138, 223, 255, .02); content: ""; }
+        .context-panel::after { position: absolute; width: 8rem; height: 8rem; top: 6.5rem; right: 3rem; background: radial-gradient(circle at 35% 30%, #b9ebff, #4489b6 39%, #16446d 68%, #0b213b); border-radius: 50%; box-shadow: -1rem 1rem 2.5rem rgba(5, 19, 36, .55); content: ""; }
+        .context-kicker { position: relative; z-index: 1; margin: 0 0 1rem; color: var(--cyan); font-family: "DM Mono", monospace; font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; }
+        .context-panel h1 { position: relative; z-index: 1; max-width: 9ch; margin: 0; font-size: clamp(2.1rem, 5vw, 3.3rem); line-height: 1; letter-spacing: -.065em; }
+        .context-copy { position: relative; z-index: 1; max-width: 22rem; margin: 1rem 0 0; color: #c3d3e5; font-size: .95rem; line-height: 1.65; }
+        .context-list { position: relative; z-index: 1; display: grid; gap: .55rem; margin: 2rem 0 0; color: #d3e7f6; font-size: .82rem; }
+        .context-list span { display: flex; align-items: center; gap: .55rem; }
+        .context-list .material-symbols-outlined { color: var(--cyan); font-size: 1.05rem; }
+
+        .form-panel { padding: clamp(1.8rem, 5vw, 3.2rem); }
+        .tabs { display: grid; grid-template-columns: 1fr 1fr; gap: .25rem; padding: .25rem; margin-bottom: 2rem; background: rgba(6, 17, 31, .6); border: 1px solid rgba(138, 223, 255, .12); border-radius: .55rem; }
+        .tab { padding: .65rem; color: var(--muted); background: transparent; border: 0; border-radius: .35rem; cursor: pointer; }
+        .tab[aria-selected="true"] { color: var(--ink); background: rgba(138, 223, 255, .14); }
+        .auth-heading { margin: 0; font-size: 1.85rem; letter-spacing: -.055em; }
+        .auth-subheading { margin: .55rem 0 1.6rem; color: var(--muted); font-size: .92rem; line-height: 1.6; }
+        .form-message { min-height: 0; margin: 0 0 1.25rem; padding: 0; color: var(--error); font-size: .86rem; line-height: 1.45; border-radius: .45rem; }
+        .form-message:not(:empty) { padding: .7rem .8rem; background: rgba(255, 180, 171, .1); border: 1px solid rgba(255, 180, 171, .25); }
+        .form-message.success { color: var(--success); background: rgba(145, 245, 194, .08); border-color: rgba(145, 245, 194, .2); }
+        form { display: grid; gap: 1rem; }
+        .field { display: grid; gap: .45rem; }
+        label { color: var(--cyan); font-family: "DM Mono", monospace; font-size: .68rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; }
+        .input-wrap { position: relative; }
+        .input-wrap > .material-symbols-outlined { position: absolute; top: 50%; left: .9rem; color: var(--muted); font-size: 1.15rem; pointer-events: none; transform: translateY(-50%); }
+        input { width: 100%; min-height: 3rem; padding: .72rem 2.8rem; color: var(--ink); background: rgba(5, 17, 31, .52); border: 1px solid rgba(178, 221, 255, .2); border-radius: .45rem; outline: 0; }
+        input::placeholder { color: #718096; }
+        input:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(138, 223, 255, .1); }
+        .password-toggle { position: absolute; top: 50%; right: .45rem; display: grid; width: 2.3rem; height: 2.3rem; color: var(--muted); place-items: center; background: transparent; border: 0; border-radius: .35rem; cursor: pointer; transform: translateY(-50%); }
+        .password-toggle:hover { color: var(--cyan); background: rgba(138, 223, 255, .08); }
+        .password-toggle .material-symbols-outlined { font-size: 1.1rem; }
+        .button { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-height: 3rem; padding: .75rem 1rem; color: #260d04; font-weight: 700; background: var(--orange); border: 0; border-radius: .45rem; cursor: pointer; transition: transform .2s ease, background .2s ease, box-shadow .2s ease; }
+        .button:hover { background: #ffa075; box-shadow: 0 10px 25px rgba(255, 111, 61, .2); transform: translateY(-2px); }
+        .button:focus-visible, .tab:focus-visible, .password-toggle:focus-visible, .back-link:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+        .form-footer { margin: 1.4rem 0 0; color: var(--muted); font-size: .78rem; line-height: 1.55; }
+        .form-footer strong { color: var(--ink); }
+        [hidden] { display: none !important; }
+
+        @media (max-width: 760px) {
+            .auth-layout { grid-template-columns: 1fr; max-width: 33rem; }
+            .context-panel { min-height: 15rem; padding: 2rem; }
+            .context-panel::before { width: 16rem; height: 16rem; top: -5rem; right: -5rem; }
+            .context-panel::after { top: 2.6rem; right: 1.9rem; width: 5.8rem; height: 5.8rem; }
+            .context-panel h1 { max-width: 13ch; font-size: 2.2rem; }
+            .context-copy, .context-list { display: none; }
+        }
+
+        @media (max-width: 480px) {
+            .shell { width: min(calc(100% - 1.5rem), 1120px); }
+            .site-header { padding: 1rem 0; }
+            main { padding-top: 1rem; }
+            .form-panel { padding: 1.5rem; }
+        }
+    </style>
+    <script src="auth.js"></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="shell header-row">
+            <a class="brand" href="index.html" aria-label="COSMARA home"><img src="logo.png" alt=""><span>COSMARA</span></a>
+            <a class="back-link" href="index.html"><span class="material-symbols-outlined" aria-hidden="true">arrow_back</span> Back to home</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="auth-layout" aria-labelledby="auth-title">
+            <aside class="context-panel">
+                <p class="context-kicker">COSMARA learning workspace</p>
+                <h1>Make your next question count.</h1>
+                <p class="context-copy">Save your learning path and return to the dashboard as COSMARA grows into a connected aerospace workspace.</p>
+                <div class="context-list" aria-label="Account benefits">
+                    <span><span class="material-symbols-outlined" aria-hidden="true">school</span>Continue your learning path</span>
+                    <span><span class="material-symbols-outlined" aria-hidden="true">description</span>Keep track of your projects</span>
+                    <span><span class="material-symbols-outlined" aria-hidden="true">rocket</span>Return to your mission workspace</span>
+                </div>
+            </aside>
+
+            <div class="form-panel">
+                <div class="tabs" role="tablist" aria-label="Account actions">
+                    <button class="tab" id="sign-in-tab" type="button" role="tab" aria-controls="sign-in-panel" aria-selected="true">Sign in</button>
+                    <button class="tab" id="create-account-tab" type="button" role="tab" aria-controls="create-account-panel" aria-selected="false">Create account</button>
+                </div>
+
+                <div id="sign-in-panel" role="tabpanel" aria-labelledby="sign-in-tab">
+                    <h2 class="auth-heading" id="auth-title">Welcome back</h2>
+                    <p class="auth-subheading" id="sign-in-description">Sign in to open your COSMARA dashboard.</p>
+                    <div class="form-message" id="sign-in-message" role="alert" aria-live="polite"></div>
+                    <form id="sign-in-form">
+                        <div class="field">
+                            <label for="sign-in-email">Email address</label>
+                            <div class="input-wrap"><span class="material-symbols-outlined" aria-hidden="true">mail</span><input id="sign-in-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required></div>
+                        </div>
+                        <div class="field">
+                            <label for="sign-in-password">Password</label>
+                            <div class="input-wrap">
+                                <span class="material-symbols-outlined" aria-hidden="true">lock</span>
+                                <input id="sign-in-password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+                                <button class="password-toggle" type="button" data-password-toggle="sign-in-password" aria-label="Show password"><span class="material-symbols-outlined" aria-hidden="true">visibility</span></button>
+                            </div>
+                        </div>
+                        <button class="button" type="submit"><span class="material-symbols-outlined" aria-hidden="true">login</span> Sign in to COSMARA</button>
+                    </form>
+                </div>
+
+                <div id="create-account-panel" role="tabpanel" aria-labelledby="create-account-tab" hidden>
+                    <h2 class="auth-heading">Create your profile</h2>
+                    <p class="auth-subheading">Your profile opens a personal dashboard for your learning journey and future projects.</p>
+                    <div class="form-message" id="create-account-message" role="alert" aria-live="polite"></div>
+                    <form id="create-account-form">
+                        <div class="field">
+                            <label for="create-account-name">Your name</label>
+                            <div class="input-wrap"><span class="material-symbols-outlined" aria-hidden="true">person</span><input id="create-account-name" name="username" type="text" autocomplete="name" placeholder="Your name" minlength="2" maxlength="60" required></div>
+                        </div>
+                        <div class="field">
+                            <label for="create-account-email">Email address</label>
+                            <div class="input-wrap"><span class="material-symbols-outlined" aria-hidden="true">mail</span><input id="create-account-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required></div>
+                        </div>
+                        <div class="field">
+                            <label for="create-account-password">Password</label>
+                            <div class="input-wrap">
+                                <span class="material-symbols-outlined" aria-hidden="true">lock</span>
+                                <input id="create-account-password" name="password" type="password" autocomplete="new-password" placeholder="At least 8 characters" minlength="8" required>
+                                <button class="password-toggle" type="button" data-password-toggle="create-account-password" aria-label="Show password"><span class="material-symbols-outlined" aria-hidden="true">visibility</span></button>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="create-account-confirm-password">Confirm password</label>
+                            <div class="input-wrap">
+                                <span class="material-symbols-outlined" aria-hidden="true">verified_user</span>
+                                <input id="create-account-confirm-password" name="confirmPassword" type="password" autocomplete="new-password" placeholder="Repeat your password" minlength="8" required>
+                                <button class="password-toggle" type="button" data-password-toggle="create-account-confirm-password" aria-label="Show password"><span class="material-symbols-outlined" aria-hidden="true">visibility</span></button>
+                            </div>
+                        </div>
+                        <button class="button" type="submit"><span class="material-symbols-outlined" aria-hidden="true">person_add</span> Create account</button>
+                    </form>
+                </div>
+
+                <p class="form-footer"><strong>Prototype note:</strong> accounts currently live only in this browser while COSMARA is being built. Production accounts will need server-side authentication and secure password storage.</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const signInTab = document.querySelector('#sign-in-tab');
+        const createAccountTab = document.querySelector('#create-account-tab');
+        const signInPanel = document.querySelector('#sign-in-panel');
+        const createAccountPanel = document.querySelector('#create-account-panel');
+        const signInMessage = document.querySelector('#sign-in-message');
+        const createAccountMessage = document.querySelector('#create-account-message');
+
+        function setMessage(element, message, isSuccess = false) {
+            element.textContent = message;
+            element.classList.toggle('success', isSuccess);
+        }
+
+        function selectPanel(panel) {
+            const isSignIn = panel === 'sign-in';
+            signInTab.setAttribute('aria-selected', String(isSignIn));
+            createAccountTab.setAttribute('aria-selected', String(!isSignIn));
+            signInPanel.hidden = !isSignIn;
+            createAccountPanel.hidden = isSignIn;
+            setMessage(signInMessage, '');
+            setMessage(createAccountMessage, '');
+            (isSignIn ? document.querySelector('#sign-in-email') : document.querySelector('#create-account-name')).focus();
+        }
+
+        signInTab.addEventListener('click', () => selectPanel('sign-in'));
+        createAccountTab.addEventListener('click', () => selectPanel('create-account'));
+
+        document.querySelectorAll('[data-password-toggle]').forEach((button) => {
+            button.addEventListener('click', () => {
+                const input = document.querySelector(`#${button.dataset.passwordToggle}`);
+                const isHidden = input.type === 'password';
+                input.type = isHidden ? 'text' : 'password';
+                button.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
+                button.querySelector('.material-symbols-outlined').textContent = isHidden ? 'visibility_off' : 'visibility';
+            });
+        });
+
+        document.querySelector('#sign-in-form').addEventListener('submit', (event) => {
+            event.preventDefault();
+            const form = new FormData(event.currentTarget);
+            const result = window.COSMARA_AUTH.signIn(form.get('email'), form.get('password'));
+
+            if (!result.ok) {
+                setMessage(signInMessage, result.message);
+                return;
+            }
+
+            setMessage(signInMessage, 'Signed in. Opening your workspace…', true);
+            window.location.assign(result.destination);
+        });
+
+        document.querySelector('#create-account-form').addEventListener('submit', (event) => {
+            event.preventDefault();
+            const form = new FormData(event.currentTarget);
+            const result = window.COSMARA_AUTH.signUp({
+                username: form.get('username'),
+                email: form.get('email'),
+                password: form.get('password'),
+                confirmPassword: form.get('confirmPassword')
+            });
+
+            if (!result.ok) {
+                setMessage(createAccountMessage, result.message);
+                return;
+            }
+
+            setMessage(createAccountMessage, 'Your profile is ready. Opening your dashboard…', true);
+            window.location.assign(result.destination);
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentUser = window.COSMARA_AUTH.getCurrentUser();
+            if (currentUser) {
+                window.location.replace(currentUser.role === 'admin' ? 'admin.html' : 'dashboard.html');
+                return;
+            }
+
+            if (window.COSMARA_AUTH.getSafeRedirect() === 'admin.html') {
+                document.querySelector('#sign-in-description').textContent = 'Sign in with an administrator account to continue.';
+            }
+        });
+    </script>
+</body>
+</html>

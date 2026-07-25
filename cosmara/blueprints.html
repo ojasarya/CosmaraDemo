@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>COSMARA Blueprints | Where Every Mission Meets The Infinite</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Geist:wght@400;500&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <style>
+        :root {
+            --grid-opacity: 0.07;
+        }
+        body {
+            background-color: #10131a;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, var(--grid-opacity)) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, var(--grid-opacity)) 1px, transparent 1px);
+            background-size: 32px 32px;
+            color: #e1e2eb;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        .page-transition {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .glass-panel {
+            backdrop-filter: blur(16px);
+            background: rgba(29, 32, 38, 0.4);
+            border: 1px solid rgba(166, 230, 255, 0.15);
+        }
+        .rocket-flare-hover:hover {
+            background: linear-gradient(135deg, #ff5f1f 0%, #ffb59c 100%);
+            box-shadow: 0 0 20px rgba(255, 95, 31, 0.4);
+            transform: translateY(-2px);
+        }
+        .blueprint-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .blueprint-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(166, 230, 255, 0.1);
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#e3bfb3",
+                        "surface-container-low": "#191c22",
+                        "tertiary-container": "#8e959c",
+                        "on-background": "#e1e2eb",
+                        "surface-bright": "#363940",
+                        "outline-variant": "#5b4138",
+                        "surface-container-lowest": "#0b0e14",
+                        "secondary-container": "#14d1ff",
+                        "outline": "#aa897f",
+                        "on-tertiary-fixed": "#161c22",
+                        "inverse-surface": "#e1e2eb",
+                        "on-primary-fixed-variant": "#832700",
+                        "surface-container": "#1d2026",
+                        "primary": "#ffb59c",
+                        "on-secondary": "#003543",
+                        "on-primary-fixed": "#390c00",
+                        "primary-container": "#ff5f1f",
+                        "background": "#10131a",
+                        "on-tertiary": "#2b3137",
+                        "surface-variant": "#32353c",
+                        "secondary": "#a6e6ff",
+                        "secondary-fixed": "#b7eaff",
+                        "error-container": "#93000a",
+                        "surface": "#10131a",
+                        "surface-dim": "#10131a",
+                        "on-surface": "#e1e2eb",
+                        "error": "#ffb4ab",
+                        "inverse-on-surface": "#2e3037",
+                        "on-error": "#690005",
+                        "tertiary-fixed-dim": "#c1c7cf",
+                        "secondary-fixed-dim": "#4cd6ff",
+                        "surface-container-highest": "#32353c",
+                        "tertiary": "#c1c7cf",
+                        "on-error-container": "#ffdad6",
+                        "surface-tint": "#ffb59c",
+                        "on-primary-container": "#561700",
+                        "on-tertiary-container": "#272e34",
+                        "on-secondary-container": "#00566b",
+                        "on-secondary-fixed-variant": "#004e60",
+                        "surface-container-high": "#272a31",
+                        "on-primary": "#5c1900",
+                        "inverse-primary": "#ab3600",
+                        "primary-fixed": "#ffdbcf",
+                        "primary-fixed-dim": "#ffb59c",
+                        "on-secondary-fixed": "#001f28",
+                        "on-tertiary-fixed-variant": "#41474e",
+                        "tertiary-fixed": "#dde3eb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "section-gap": "64px",
+                        "container-margin": "32px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["JetBrains Mono"],
+                        "headline-xl": ["Space Grotesk"],
+                        "mono-data": ["JetBrains Mono"],
+                        "body-lg": ["Geist"],
+                        "headline-md": ["Space Grotesk"],
+                        "body-md": ["Geist"],
+                        "headline-lg": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "mono-data": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="flex flex-col min-h-screen page-transition">
+    <!-- TopNavBar -->
+    <nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-container-margin h-16 bg-surface/60 backdrop-blur-md border-b border-secondary/20 shadow-sm shadow-secondary/10">
+        <div class="flex items-center gap-8">
+            <div class="w-12 h-12 flex items-center justify-center bg-transparent">
+                <img src="logo.png" alt="COSMARA Logo" class="w-full h-full object-contain">
+            </div>
+            <a href="index.html" class="font-headline-md text-headline-md font-bold text-primary tracking-tighter hover:text-secondary transition-colors">COSMARA</a>
+            <div class="hidden md:flex items-center gap-6">
+                <a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="index.html">Home</a>
+                <a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="academy.html">Academy</a>
+                <a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="workshop.html">Workshop</a>
+                <a class="font-body-md text-body-md text-primary border-b-2 border-primary pb-1" href="blueprints.html">Blueprints</a>
+                <a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="dashboard.html">Dashboard</a>
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <span class="hidden sm:block font-label-caps text-label-caps text-on-surface-variant">Rank: Commander</span>
+            <button class="bg-primary-container text-on-primary-container px-4 py-2 font-label-caps text-label-caps rounded-lg rocket-flare-hover transition-all" onclick="window.location.href='academy.html'">
+                Quick-Start
+            </button>
+            <div class="w-10 h-10 rounded-full border border-secondary/30 bg-surface-container overflow-hidden">
+                <img alt="User Rank Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkL4u63kd9osL3bxWOLQ_ygzlts-TLI1_t5wZPpMXpvw7RhnU1zpQYL9MkTJxNUVqUqIUNm_TvU0yfTbEmlsbX6dIAM_ZUlukJRJo7IFupvh_83QhPKNuIKnGk2dB2ukVVHNlR2wL8sw4YLrrtEbuTAt0fvGYHVjlrt8Jlym-BuSuhx5Hf03iYJoVSlLLU62qaarkzh3wi1VfQEdsU3mGyep_rTp4gn4LO6eUkcTCDd4hffa9x70Gr0paChBHdhvHEtwpWqx8MOqU"/>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-16 px-container-margin py-12">
+        <!-- Header Section -->
+        <div class="mb-12">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="w-12 h-[1px] bg-secondary"></span>
+                <span class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.2em]">Engineering Archive</span>
+            </div>
+            <h1 class="font-headline-xl text-headline-xl text-on-surface leading-tight mb-4">
+                Blueprint Library
+            </h1>
+            <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                Access certified aerospace designs, technical schematics, and mission-critical blueprints. Filter by category, complexity, or mission requirements.
+            </p>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="glass-panel p-4 rounded-xl mb-8 flex flex-wrap gap-4 items-center">
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-secondary">filter_list</span>
+                <span class="font-label-caps text-label-caps text-on-surface-variant">FILTER:</span>
+            </div>
+            <button class="px-4 py-2 bg-secondary text-on-secondary rounded-lg font-label-caps text-label-caps text-sm">All</button>
+            <button class="px-4 py-2 bg-surface-variant text-on-surface-variant rounded-lg font-label-caps text-label-caps text-sm hover:bg-surface-bright/30 transition-colors">Rockets</button>
+            <button class="px-4 py-2 bg-surface-variant text-on-surface-variant rounded-lg font-label-caps text-label-caps text-sm hover:bg-surface-bright/30 transition-colors">Spacecraft</button>
+            <button class="px-4 py-2 bg-surface-variant text-on-surface-variant rounded-lg font-label-caps text-label-caps text-sm hover:bg-surface-bright/30 transition-colors">Satellites</button>
+            <button class="px-4 py-2 bg-surface-variant text-on-surface-variant rounded-lg font-label-caps text-label-caps text-sm hover:bg-surface-bright/30 transition-colors">Components</button>
+            <div class="ml-auto flex items-center gap-2">
+                <span class="material-symbols-outlined text-on-surface-variant">search</span>
+                <input type="text" placeholder="Search blueprints..." class="bg-surface-container-low border border-outline-variant/30 rounded-lg px-4 py-2 text-on-surface placeholder-on-surface-variant/50 focus:outline-none focus:border-secondary">
+            </div>
+        </div>
+
+        <!-- Blueprints Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Blueprint Card 1 -->
+            <div class="blueprint-card glass-panel rounded-xl overflow-hidden cursor-pointer" onclick="window.location.href='workshop.html?type=rocket&name=Voyager-9'">
+                <div class="aspect-video bg-surface-container-low relative">
+                    <img class="w-full h-full object-cover opacity-60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0vY3GvAPdRrfR1ZxF6goUa68HXp3U8ie6-O9qlrydG7nvkhkGGXmR6yK-LCSdXOE9KCgvRrIV4tc6cL1FJ6y-0guOHl3CqJ6E27yLCHd0E-uI5LzLisNlDjhaHvP3kfpRutUN5uCBSWnkXANMxo3JBtW5fU9EXoC4n4dGlLf6x6GDZniDrxvudQEmPEmUDcPJDNLzZUKQvhtxwlbDCMHktW_DfbBV6y2Cy2ErFjnfTm5Bg83lg1VzeTh_AWeLYucojRwQNkmZ_2M" alt="Rocket Engine Blueprint">
+                    <div class="absolute top-3 right-3 bg-secondary text-on-secondary px-2 py-1 rounded text-xs font-label-caps">CERTIFIED</div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-mono-data text-mono-data text-secondary text-xs">VOYAGER-9</span>
+                        <span class="font-label-caps text-label-caps text-on-surface-variant text-xs">ROCKET</span>
+                    </div>
+                    <h3 class="font-headline-md text-headline-md text-on-surface mb-2">Heavy-Lift Launch Vehicle</h3>
+                    <p class="font-body-md text-body-md text-on-surface-variant text-sm mb-4">Advanced propulsion system with reusable first stage. Payload capacity: 63,800 kg to LEO.</p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-secondary text-sm">person</span>
+                            <span class="text-xs text-on-surface-variant">Cmdr. Shepard</span>
+                        </div>
+                        <span class="font-mono-data text-mono-data text-secondary text-xs">v2.4.1</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blueprint Card 2 -->
+            <div class="blueprint-card glass-panel rounded-xl overflow-hidden cursor-pointer" onclick="window.location.href='workshop.html?type=spacecraft&name=Strato-Glider'">
+                <div class="aspect-video bg-surface-container-low relative">
+                    <img class="w-full h-full object-cover opacity-60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7e61B54SoEucT5lJbFPZLxRkop3htkATe8HjFW5Cxy_fiY7yAsJKZrT37LLNOoJitq8E15BzRyToj8GpUvItesXq7NLs1EJgHVpo02-S2u0j0dEZ45Jo1-o6tcfdaqJgIrdVRmF0GsR3bWUWoMIOk_Vd7Dep75MpJAn37bae5TXzganXfHMX-VNS_Q0L9swVLZaT5NQrpl9ENg8FmfQhtrKNVo-3x5XL_t_CFjYPXuxBiZ266EvschaW0F9z8ICpYki9HC0epNN0" alt="Glider Blueprint">
+                    <div class="absolute top-3 right-3 bg-primary text-on-primary px-2 py-1 rounded text-xs font-label-caps">DRAFT</div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-mono-data text-mono-data text-secondary text-xs">STRATO-GLIDER</span>
+                        <span class="font-label-caps text-label-caps text-on-surface-variant text-xs">SPACECRAFT</span>
+                    </div>
+                    <h3 class="font-headline-md text-headline-md text-on-surface mb-2">Atmospheric Re-entry Vehicle</h3>
+                    <p class="font-body-md text-body-md text-on-surface-variant text-sm mb-4">Lifting body design for controlled atmospheric re-entry. Thermal protection system integrated.</p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-secondary text-sm">person</span>
+                            <span class="text-xs text-on-surface-variant">Lt. Armstrong</span>
+                        </div>
+                        <span class="font-mono-data text-mono-data text-secondary text-xs">v1.0.0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blueprint Card 3 -->
+            <div class="blueprint-card glass-panel rounded-xl overflow-hidden cursor-pointer" onclick="window.location.href='workshop.html?type=satellite&name=Orbital-Array'">
+                <div class="aspect-video bg-surface-container-low relative">
+                    <img class="w-full h-full object-cover opacity-60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXocKxJu-8XPjeBMviPLuv40z9ZXxdhKWLzS7mAuYTgrrKPrcDg4PiMm8X1Ca2IEdq1ShQJKTv13p7pm9NCZ5S7BvM-QXQl76Z_bodrZjuCroFrWL4oume04xLRCa3vH0C2eV9HQlO9b-AcI4zVB3PwMW_JzOBEsv9qXRotudnwCP-AWvT3K7g2BbvCuMTkAKsdLKtr0g5FuiPCI8KyTmc-vYSPcVxdbrw5sc1mMXLE8KlH6pFr8tM5FZytanzI4fEuTNeRU14TCo" alt="Satellite Blueprint">
+                    <div class="absolute top-3 right-3 bg-secondary text-on-secondary px-2 py-1 rounded text-xs font-label-caps">CERTIFIED</div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-mono-data text-mono-data text-secondary text-xs">ORBITAL-ARRAY</span>
+                        <span class="font-label-caps text-label-caps text-on-surface-variant text-xs">SATELLITE</span>
+                    </div>
+                    <h3 class="font-headline-md text-headline-md text-on-surface mb-2">Communication Satellite Cluster</h3>
+                    <p class="font-body-md text-body-md text-on-surface-variant text-sm mb-4">Mesh network constellation for global coverage. Autonomous station-keeping capabilities.</p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-secondary text-sm">person</span>
+                            <span class="text-xs text-on-surface-variant">Cmdr. Collins</span>
+                        </div>
+                        <span class="font-mono-data text-mono-data text-secondary text-xs">v3.2.0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blueprint Card 4 -->
+            <div class="blueprint-card glass-panel rounded-xl overflow-hidden cursor-pointer" onclick="window.location.href='workshop.html?type=custom&name=New+Design'">
+                <div class="aspect-video bg-surface-container-low relative">
+                    <div class="w-full h-full flex items-center justify-center bg-surface-container-low">
+                        <span class="material-symbols-outlined text-6xl text-secondary/30">add_circle</span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-mono-data text-mono-data text-secondary text-xs">NEW DESIGN</span>
+                        <span class="font-label-caps text-label-caps text-on-surface-variant text-xs">CUSTOM</span>
+                    </div>
+                    <h3 class="font-headline-md text-headline-md text-on-surface mb-2">Create New Blueprint</h3>
+                    <p class="font-body-md text-body-md text-on-surface-variant text-sm mb-4">Start a new aerospace design from scratch or modify existing certified templates.</p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-secondary text-sm">rocket_launch</span>
+                            <span class="text-xs text-on-surface-variant">Begin Design</span>
+                        </div>
+                        <span class="font-mono-data text-mono-data text-secondary text-xs">v0.0.1</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="glass-panel p-6 rounded-xl text-center">
+                <span class="font-headline-xl text-headline-xl text-secondary">24</span>
+                <span class="font-label-caps text-label-caps text-on-surface-variant block mt-2">Total Blueprints</span>
+            </div>
+            <div class="glass-panel p-6 rounded-xl text-center">
+                <span class="font-headline-xl text-headline-xl text-primary">18</span>
+                <span class="font-label-caps text-label-caps text-on-surface-variant block mt-2">Certified</span>
+            </div>
+            <div class="glass-panel p-6 rounded-xl text-center">
+                <span class="font-headline-xl text-headline-xl text-secondary">6</span>
+                <span class="font-label-caps text-label-caps text-on-surface-variant block mt-2">In Development</span>
+            </div>
+            <div class="glass-panel p-6 rounded-xl text-center">
+                <span class="font-headline-xl text-headline-xl text-primary">12</span>
+                <span class="font-label-caps text-label-caps text-on-surface-variant block mt-2">Contributors</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-gutter px-container-margin flex flex-col md:flex-row justify-between items-center bg-surface-container-lowest border-t border-outline-variant/30">
+        <div class="flex flex-col gap-2 mb-6 md:mb-0">
+            <span class="font-label-caps text-label-caps text-on-surface-variant uppercase">COSMARA Systems</span>
+            <span class="font-mono-data text-mono-data text-tertiary">Status: All Systems Go</span>
+        </div>
+        <div class="flex gap-8 mb-6 md:mb-0">
+            <a class="font-mono-data text-mono-data text-on-surface-variant hover:text-primary underline opacity-80 hover:opacity-100 transition-opacity" href="#">Documentation</a>
+            <a class="font-mono-data text-mono-data text-on-surface-variant hover:text-primary underline opacity-80 hover:opacity-100 transition-opacity" href="#">Safety Protocols</a>
+            <a class="font-mono-data text-mono-data text-on-surface-variant hover:text-primary underline opacity-80 hover:opacity-100 transition-opacity" href="#">Ground Control</a>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="flex h-2 w-24 bg-surface-variant rounded-full overflow-hidden">
+                <div class="h-full bg-primary" style="width: 75%"></div>
+            </div>
+            <span class="font-mono-data text-mono-data text-on-surface-variant text-xs">Uptime 99.98%</span>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth page transitions
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.classList.add('page-transition');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>COSMARA Admin Panel | Where Every Mission Meets The Infinite</title>
+    <script src="auth.js"></script>
+    <script>window.COSMARA_AUTH.requireUser({ role: 'admin' });</script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Geist:wght@400;500&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <style>
+        :root {
+            --grid-opacity: 0.07;
+        }
+        body {
+            background-color: #10131a;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, var(--grid-opacity)) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, var(--grid-opacity)) 1px, transparent 1px);
+            background-size: 32px 32px;
+            color: #e1e2eb;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        .page-transition {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .glass-panel {
+            backdrop-filter: blur(16px);
+            background: rgba(29, 32, 38, 0.4);
+            border: 1px solid rgba(166, 230, 255, 0.15);
+        }
+        .rocket-flare-hover:hover {
+            background: linear-gradient(135deg, #ff5f1f 0%, #ffb59c 100%);
+            box-shadow: 0 0 20px rgba(255, 95, 31, 0.4);
+            transform: translateY(-2px);
+        }
+        .status-approved {
+            background: rgba(166, 230, 255, 0.1);
+            color: #a6e6ff;
+            border: 1px solid rgba(166, 230, 255, 0.3);
+        }
+        .status-pending {
+            background: rgba(255, 181, 156, 0.1);
+            color: #ffb59c;
+            border: 1px solid rgba(255, 181, 156, 0.3);
+        }
+        .status-rejected {
+            background: rgba(255, 180, 171, 0.1);
+            color: #ffb4ab;
+            border: 1px solid rgba(255, 180, 171, 0.3);
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#e3bfb3",
+                        "surface-container-low": "#191c22",
+                        "tertiary-container": "#8e959c",
+                        "on-background": "#e1e2eb",
+                        "surface-bright": "#363940",
+                        "outline-variant": "#5b4138",
+                        "surface-container-lowest": "#0b0e14",
+                        "secondary-container": "#14d1ff",
+                        "outline": "#aa897f",
+                        "on-tertiary-fixed": "#161c22",
+                        "inverse-surface": "#e1e2eb",
+                        "on-primary-fixed-variant": "#832700",
+                        "surface-container": "#1d2026",
+                        "primary": "#ffb59c",
+                        "on-secondary": "#003543",
+                        "on-primary-fixed": "#390c00",
+                        "primary-container": "#ff5f1f",
+                        "background": "#10131a",
+                        "on-tertiary": "#2b3137",
+                        "surface-variant": "#32353c",
+                        "secondary": "#a6e6ff",
+                        "secondary-fixed": "#b7eaff",
+                        "error-container": "#93000a",
+                        "surface": "#10131a",
+                        "surface-dim": "#10131a",
+                        "on-surface": "#e1e2eb",
+                        "error": "#ffb4ab",
+                        "inverse-on-surface": "#2e3037",
+                        "on-error": "#690005",
+                        "tertiary-fixed-dim": "#c1c7cf",
+                        "secondary-fixed-dim": "#4cd6ff",
+                        "surface-container-highest": "#32353c",
+                        "tertiary": "#c1c7cf",
+                        "on-error-container": "#ffdad6",
+                        "surface-tint": "#ffb59c",
+                        "on-primary-container": "#561700",
+                        "on-tertiary-container": "#272e34",
+                        "on-secondary-container": "#00566b",
+                        "on-secondary-fixed-variant": "#004e60",
+                        "surface-container-high": "#272a31",
+                        "on-primary": "#5c1900",
+                        "inverse-primary": "#ab3600",
+                        "primary-fixed": "#ffdbcf",
+                        "primary-fixed-dim": "#ffb59c",
+                        "on-secondary-fixed": "#001f28",
+                        "on-tertiary-fixed-variant": "#41474e",
+                        "tertiary-fixed": "#dde3eb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "section-gap": "64px",
+                        "container-margin": "32px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["JetBrains Mono"],
+                        "headline-xl": ["Space Grotesk"],
+                        "mono-data": ["JetBrains Mono"],
+                        "body-lg": ["Geist"],
+                        "headline-md": ["Space Grotesk"],
+                        "body-md": ["Geist"],
+                        "headline-lg": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "mono-data": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="flex flex-col min-h-screen page-transition">
+    <!-- TopNavBar -->
+    <nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-container-margin h-16 bg-surface/60 backdrop-blur-md border-b border-secondary/20 shadow-sm shadow-secondary/10">
+        <div class="flex items-center gap-8">
+            <div class="w-12 h-12 flex items-center justify-center bg-transparent">
+                <img src="logo.png" alt="COSMARA Logo" class="w-full h-full object-contain">
+            </div>
+            <a href="index.html" class="font-headline-md text-headline-md font-bold text-primary tracking-tighter hover:text-secondary transition-colors">COSMARA</a>
+            <div class="hidden md:flex items-center gap-6">
+                <a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="index.html">Home</a>
+                <a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="academy.html">Academy</a>
+                <a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="workshop.html">Workshop</a>
+                <a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="blueprints.html">Blueprints</a>
+                <a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="dashboard.html">Dashboard</a>
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <span class="hidden sm:block font-label-caps text-label-caps text-secondary">Admin Panel</span>
+            <button class="bg-primary-container text-on-primary-container px-4 py-2 font-label-caps text-label-caps rounded-lg rocket-flare-hover transition-all" onclick="logout()">
+                Logout
+            </button>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-16 px-container-margin py-12">
+        <!-- Header Section -->
+        <div class="mb-12">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="w-12 h-[1px] bg-secondary"></span>
+                <span class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.2em]">Administration</span>
+            </div>
+            <h1 class="font-headline-xl text-headline-xl text-on-surface leading-tight mb-4">
+                User Management
+            </h1>
+            <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                Manage user registrations, approve pending accounts, and oversee system access. Monitor user activity and maintain security protocols.
+            </p>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="glass-panel p-6 rounded-xl">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="font-label-caps text-label-caps text-on-surface-variant">TOTAL USERS</span>
+                    <span class="material-symbols-outlined text-secondary">groups</span>
+                </div>
+                <span id="total-users" class="font-headline-xl text-headline-xl text-secondary">0</span>
+            </div>
+            <div class="glass-panel p-6 rounded-xl">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="font-label-caps text-label-caps text-on-surface-variant">APPROVED</span>
+                    <span class="material-symbols-outlined text-primary">check_circle</span>
+                </div>
+                <span id="approved-users" class="font-headline-xl text-headline-xl text-primary">0</span>
+            </div>
+            <div class="glass-panel p-6 rounded-xl">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="font-label-caps text-label-caps text-on-surface-variant">PENDING</span>
+                    <span class="material-symbols-outlined text-secondary">pending</span>
+                </div>
+                <span id="pending-users" class="font-headline-xl text-headline-xl text-secondary">0</span>
+            </div>
+            <div class="glass-panel p-6 rounded-xl">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="font-label-caps text-label-caps text-on-surface-variant">REJECTED</span>
+                    <span class="material-symbols-outlined text-error">cancel</span>
+                </div>
+                <span id="rejected-users" class="font-headline-xl text-headline-xl text-error">0</span>
+            </div>
+        </div>
+
+        <!-- Add User Button -->
+        <div class="mb-6">
+            <button class="px-6 py-3 bg-secondary text-on-secondary rounded-lg font-label-caps text-label-caps rocket-flare-hover transition-all flex items-center gap-2" onclick="showAddUserModal()">
+                <span class="material-symbols-outlined">person_add</span>
+                Add New User
+            </button>
+        </div>
+
+        <!-- Users Table -->
+        <div class="glass-panel rounded-xl overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-surface-container-low">
+                        <tr>
+                            <th class="px-6 py-4 text-left font-label-caps text-label-caps text-secondary text-xs tracking-wider">USER</th>
+                            <th class="px-6 py-4 text-left font-label-caps text-label-caps text-secondary text-xs tracking-wider">EMAIL</th>
+                            <th class="px-6 py-4 text-left font-label-caps text-label-caps text-secondary text-xs tracking-wider">ROLE</th>
+                            <th class="px-6 py-4 text-left font-label-caps text-label-caps text-secondary text-xs tracking-wider">STATUS</th>
+                            <th class="px-6 py-4 text-left font-label-caps text-label-caps text-secondary text-xs tracking-wider">CREATED</th>
+                            <th class="px-6 py-4 text-left font-label-caps text-label-caps text-secondary text-xs tracking-wider">ACTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-table-body" class="divide-y divide-outline-variant/20">
+                        <!-- Users will be loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add User Modal -->
+    <div id="add-user-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 backdrop-blur-sm">
+        <div class="glass-panel p-8 rounded-xl w-full max-w-md mx-4">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="font-headline-lg text-headline-lg text-on-surface">Add New User</h2>
+                <button onclick="hideAddUserModal()" class="text-on-surface-variant hover:text-secondary">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <form onsubmit="addUser(event)" class="space-y-4">
+                <div>
+                    <label class="block font-label-caps text-label-caps text-secondary mb-2">USERNAME</label>
+                    <input type="text" id="new-username" required class="w-full px-4 py-3 bg-surface-container-low border border-outline-variant/30 rounded-lg text-on-surface placeholder-on-surface-variant/50 focus:outline-none focus:border-secondary" placeholder="Enter username">
+                </div>
+                <div>
+                    <label class="block font-label-caps text-label-caps text-secondary mb-2">EMAIL</label>
+                    <input type="email" id="new-email" required class="w-full px-4 py-3 bg-surface-container-low border border-outline-variant/30 rounded-lg text-on-surface placeholder-on-surface-variant/50 focus:outline-none focus:border-secondary" placeholder="user@cosmara.space">
+                </div>
+                <div>
+                    <label class="block font-label-caps text-label-caps text-secondary mb-2">PASSWORD</label>
+                    <input type="password" id="new-password" required class="w-full px-4 py-3 bg-surface-container-low border border-outline-variant/30 rounded-lg text-on-surface placeholder-on-surface-variant/50 focus:outline-none focus:border-secondary" placeholder="Enter password">
+                </div>
+                <div>
+                    <label class="block font-label-caps text-label-caps text-secondary mb-2">ROLE</label>
+                    <select id="new-role" class="w-full px-4 py-3 bg-surface-container-low border border-outline-variant/30 rounded-lg text-on-surface focus:outline-none focus:border-secondary">
+                        <option value="cadet">Cadet</option>
+                        <option value="engineer">Engineer</option>
+                        <option value="commander">Commander</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full py-3 bg-secondary text-on-secondary rounded-lg font-label-caps text-label-caps rocket-flare-hover transition-all">
+                    Create User
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="w-full py-gutter px-container-margin flex flex-col md:flex-row justify-between items-center bg-surface-container-lowest border-t border-outline-variant/30">
+        <div class="flex flex-col gap-2 mb-6 md:mb-0">
+            <span class="font-label-caps text-label-caps text-on-surface-variant uppercase">COSMARA Admin Panel</span>
+            <span class="font-mono-data text-mono-data text-tertiary">Status: All Systems Go</span>
+        </div>
+        <div class="flex gap-8 mb-6 md:mb-0">
+            <a class="font-mono-data text-mono-data text-on-surface-variant hover:text-primary underline opacity-80 hover:opacity-100 transition-opacity" href="#">Documentation</a>
+            <a class="font-mono-data text-mono-data text-on-surface-variant hover:text-primary underline opacity-80 hover:opacity-100 transition-opacity" href="#">Safety Protocols</a>
+            <a class="font-mono-data text-mono-data text-on-surface-variant hover:text-primary underline opacity-80 hover:opacity-100 transition-opacity" href="#">Ground Control</a>
+        </div>
+    </footer>
+
+    <script>
+        let users = window.COSMARA_AUTH.getUsers();
+
+        // Check admin authentication
+        function checkAdminAuth() {
+            return window.COSMARA_AUTH.requireUser({ role: 'admin' });
+        }
+
+        // Load users table
+        function loadUsers() {
+            const tbody = document.getElementById('users-table-body');
+            tbody.innerHTML = users.map(user => `
+                <tr class="hover:bg-surface-container-low/50 transition-colors">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-secondary">person</span>
+                            </div>
+                            <div>
+                                <div class="font-body-md text-body-md text-on-surface">${user.username}</div>
+                                <div class="font-mono-data text-mono-data text-on-surface-variant text-xs">ID: ${user.id}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 font-mono-data text-mono-data text-on-surface-variant text-sm">${user.email}</td>
+                    <td class="px-6 py-4">
+                        <span class="font-label-caps text-label-caps text-on-surface-variant text-xs">${user.role.toUpperCase()}</span>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="px-3 py-1 rounded-full text-xs font-label-caps status-${user.status}">${user.status.toUpperCase()}</span>
+                    </td>
+                    <td class="px-6 py-4 font-mono-data text-mono-data text-on-surface-variant text-sm">${user.createdAt}</td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center gap-2">
+                            ${user.status === 'pending' ? `
+                                <button onclick="approveUser(${user.id})" class="p-2 bg-secondary/10 text-secondary rounded hover:bg-secondary/20 transition-colors" title="Approve">
+                                    <span class="material-symbols-outlined text-sm">check</span>
+                                </button>
+                                <button onclick="rejectUser(${user.id})" class="p-2 bg-error/10 text-error rounded hover:bg-error/20 transition-colors" title="Reject">
+                                    <span class="material-symbols-outlined text-sm">close</span>
+                                </button>
+                            ` : `
+                                <button onclick="deleteUser(${user.id})" class="p-2 bg-error/10 text-error rounded hover:bg-error/20 transition-colors" title="Delete">
+                                    <span class="material-symbols-outlined text-sm">delete</span>
+                                </button>
+                            `}
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+
+            updateStats();
+        }
+
+        // Update statistics
+        function updateStats() {
+            document.getElementById('total-users').textContent = users.length;
+            document.getElementById('approved-users').textContent = users.filter(u => u.status === 'approved').length;
+            document.getElementById('pending-users').textContent = users.filter(u => u.status === 'pending').length;
+            document.getElementById('rejected-users').textContent = users.filter(u => u.status === 'rejected').length;
+        }
+
+        // Approve user
+        function approveUser(userId) {
+            const user = users.find(u => u.id === userId);
+            if (user) {
+                user.status = 'approved';
+                saveUsers();
+                loadUsers();
+                showNotification(`User ${user.username} has been approved`);
+            }
+        }
+
+        // Reject user
+        function rejectUser(userId) {
+            const user = users.find(u => u.id === userId);
+            if (user) {
+                user.status = 'rejected';
+                saveUsers();
+                loadUsers();
+                showNotification(`User ${user.username} has been rejected`);
+            }
+        }
+
+        // Delete user
+        function deleteUser(userId) {
+            if (confirm('Are you sure you want to delete this user?')) {
+                users = users.filter(u => u.id !== userId);
+                saveUsers();
+                loadUsers();
+                showNotification('User has been deleted');
+            }
+        }
+
+        // Add new user
+        function addUser(event) {
+            event.preventDefault();
+            const username = document.getElementById('new-username').value;
+            const email = document.getElementById('new-email').value;
+            const password = document.getElementById('new-password').value;
+            const role = document.getElementById('new-role').value;
+
+            // Check if email already exists
+            if (users.find(u => u.email === email)) {
+                showNotification('Email already exists');
+                return;
+            }
+
+            const newUser = {
+                id: users.reduce((highestId, user) => Math.max(highestId, Number(user.id) || 0), 0) + 1,
+                username,
+                email,
+                password,
+                status: 'pending',
+                role,
+                createdAt: new Date().toISOString().split('T')[0]
+            };
+
+            users.push(newUser);
+            saveUsers();
+            loadUsers();
+            hideAddUserModal();
+            showNotification(`User ${username} has been created and is pending approval`);
+
+            // Reset form
+            event.target.reset();
+        }
+
+        // Save users to localStorage
+        function saveUsers() {
+            window.COSMARA_AUTH.saveUsers(users);
+        }
+
+        // Show add user modal
+        function showAddUserModal() {
+            document.getElementById('add-user-modal').classList.remove('hidden');
+            document.getElementById('add-user-modal').classList.add('flex');
+        }
+
+        // Hide add user modal
+        function hideAddUserModal() {
+            document.getElementById('add-user-modal').classList.add('hidden');
+            document.getElementById('add-user-modal').classList.remove('flex');
+        }
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-20 right-4 bg-secondary text-on-secondary px-6 py-3 rounded-lg shadow-lg z-50 font-label-caps text-label-caps';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Logout
+        function logout() {
+            window.COSMARA_AUTH.signOut('login.html');
+        }
+
+        // Smooth page transitions
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.classList.add('page-transition');
+            checkAdminAuth();
+            loadUsers();
+        });
+    </script>
+</body>
+</html>
